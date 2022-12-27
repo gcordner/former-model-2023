@@ -29,5 +29,17 @@ Features:
     
 ## TwentyTwenty will be the foundation for our new theme.
 
+## Set up using wpgulp
+[https://github.com/ahmadawais/WPGulp](https://github.com/ahmadawais/WPGulp)
+
+From within the theme, run:
+```
+# 1— Install WPGulp in your WordPress theme/plugin.
+npx wpgulp
+# 2— Now configure variables inside the `wpgulp.config.js` file.
+# 3— Start your npm build workflow.
+npm start
+```
+
 ## Register Menus
 See [https://developer.wordpress.org/themes/functionality/navigation-menus/](https://developer.wordpress.org/themes/functionality/navigation-menus/)
