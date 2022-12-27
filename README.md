@@ -2,7 +2,7 @@
 
 Features:
 
-- Vanilla WordPress 5
+- Vanilla WordPress 6
 
 ## Setup instructions
 
@@ -29,4 +29,5 @@ Features:
     
 ## TwentyTwenty will be the foundation for our new theme.
 
-
+## Register Menus
+See [https://developer.wordpress.org/themes/functionality/navigation-menus/](https://developer.wordpress.org/themes/functionality/navigation-menus/)
