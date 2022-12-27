@@ -266,20 +266,20 @@ add_action( 'wp_enqueue_scripts', 'twentytwenty_non_latin_languages' );
  *
  * @since twentytwenty 1.0
  */
-function twentytwenty_menus() {
+function boilerplate_menus() {
 
 	$locations = array(
-		'primary'  => __( 'Desktop Horizontal Menu', 'twentytwenty' ),
-		'expanded' => __( 'Desktop Expanded Menu', 'twentytwenty' ),
-		'mobile'   => __( 'Mobile Menu', 'twentytwenty' ),
-		'footer'   => __( 'Footer Menu', 'twentytwenty' ),
-		'social'   => __( 'Social Menu', 'twentytwenty' ),
+		'primary'  => __( 'Desktop Horizontal Menu', 'boilerplate' ),
+		'expanded' => __( 'Desktop Expanded Menu', 'boilerplate' ),
+		'mobile'   => __( 'Mobile Menu', 'boilerplate' ),
+		'footer'   => __( 'Footer Menu', 'boilerplate' ),
+		'social'   => __( 'Social Menu', 'boilerplate' ),
 	);
 
 	register_nav_menus( $locations );
 }
 
-add_action( 'init', 'twentytwenty_menus' );
+add_action( 'init', 'boilerplate_menus' );
 
 /**
  * Get the information about the logo.
