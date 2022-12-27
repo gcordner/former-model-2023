@@ -1,55 +1,48 @@
 {
-	"name": "twentytwenty",
-	"version": "2.1.0",
-	"description": "Default WP Theme",
-	"author": "The WordPress Contributors",
-	"license": "GPL-2.0-or-later",
-	"keywords": [
-		"WordPress",
-		"Theme",
-		"twentytwenty"
-	],
-	"homepage": "https://wordpress.org/themes/twentytwenty/",
-	"bugs": {
-		"url": "https://core.trac.wordpress.org/"
-	},
+	"name": "your-project",
+	"description": "A WPGulp based project.",
+	"version": "0.0.1",
+	"repository": "ahmadawais/WPGulp",
+	"license": "MIT",
 	"devDependencies": {
-		"@wordpress/browserslist-config": "^5.1.0",
-		"@wordpress/scripts": "^24.2.0",
-		"autoprefixer": "^10.4.12",
-		"concurrently": "^7.4.0",
-		"postcss": "^8.4.16",
-		"postcss-cli": "^10.0.0",
-		"rtlcss": "^4.0.0",
-		"stylelint-a11y": "^1.2.3"
-	},
-	"browserslist": [
-		"extends @wordpress/browserslist-config"
-	],
-	"rtlcssConfig": {
-		"options": {
-			"autoRename": false,
-			"autoRenameStrict": false,
-			"clean": true,
-			"greedy": false,
-			"processUrls": false,
-			"stringMap": []
-		},
-		"plugins": [],
-		"map": false
+		"@babel/core": "^7.0.0",
+		"@babel/register": "^7.0.0",
+		"@babel/preset-env": "^7.12.1",
+		"beepbeep": "^1.2.2",
+		"browser-sync": "^2.11.1",
+		"eslint": "^7.12.0",
+		"eslint-config-wordpress": "^2.0.0",
+		"gulp": "^4.0.0",
+		"gulp-autoprefixer": "^7.0.1",
+		"gulp-babel": "^8.0.0",
+		"gulp-cache": "^1.0.2",
+		"gulp-concat": "^2.5.2",
+		"gulp-filter": "^6.0.0",
+		"gulp-imagemin": "^7.1.0",
+		"gulp-line-ending-corrector": "^1.0.1",
+		"gulp-merge-media-queries": "^0.2.1",
+		"gulp-notify": "^3.0.0",
+		"gulp-plumber": "^1.2.0",
+		"gulp-remember": "^1.0.1",
+		"gulp-rename": "^2.0.0",
+		"gulp-rtlcss": "^1.2.0",
+		"gulp-sass": "^4.0.1",
+		"gulp-sort": "^2.0.0",
+		"gulp-sourcemaps": "^3.0.0",
+		"gulp-uglify": "^3.0.0",
+		"gulp-uglifycss": "^1.0.6",
+		"gulp-wp-pot": "^2.0.7",
+		"gulp-zip": "^5.0.2"
 	},
 	"scripts": {
-		"build": "npm run build:vendor-prefixes && npm run build:rtl",
-		"build:rtl": "concurrently \"npm run build:rtl-style\" \"npm run build:rtl-esb\" \"npm run build:rtl-esc\"",
-		"build:rtl-style": "rtlcss style.css style-rtl.css",
-		"build:rtl-esb": "rtlcss assets/css/editor-style-block.css assets/css/editor-style-block-rtl.css",
-		"build:rtl-esc": "rtlcss assets/css/editor-style-classic.css assets/css/editor-style-classic-rtl.css",
-		"build:vendor-prefixes": "concurrently \"npm run build:vendor-prefixes-style\" \"npm run build:vendor-prefixes-esb\" \"npm run build:vendor-prefixes-esc\"",
-		"build:vendor-prefixes-style": "postcss -r --no-map style.css assets/css/editor-style-block.css assets/css/editor-style-classic.css",
-		"build:vendor-prefixes-esb": "postcss -r --no-map assets/css/editor-style-block.css ",
-		"build:vendor-prefixes-esc": "postcss -r --no-map assets/css/editor-style-classic.css",
-		"lint:css": "wp-scripts lint-style 'style.css' 'assets/**/*.css'",
-		"lint:js": "wp-scripts lint-js 'assets/**/*.js'",
-		"lint:pkg-json": "wp-scripts lint-pkg-json"
+		"start": "gulp",
+		"zip": "gulp zip",
+		"styles": "gulp styles",
+		"images": "gulp images",
+		"js-custom": "gulp customJS",
+		"js-vendors": "gulp vendorsJS",
+		"translate": "gulp translate",
+		"styles-rtl": "gulp stylesRTL",
+		"cache-clear": "gulp clearCache"
 	}
 }
