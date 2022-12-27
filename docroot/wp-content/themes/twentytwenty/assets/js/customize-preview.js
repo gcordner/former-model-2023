@@ -1,15 +1,17 @@
-/* global twentyTwentyBgColors, twentyTwentyPreviewEls, jQuery, _, wp */
+/* global twentytwentyBgColors, twentytwentyPreviewEls, jQuery, _, wp */
 /**
  * Customizer enhancements for a better user experience.
  *
  * Contains handlers to make Theme Customizer preview reload changes asynchronously.
  *
- * @since 1.0.0
+ * @since Twenty Twenty 1.0
  */
 
 ( function( $, api, _ ) {
 	/**
 	 * Return a value for our partial refresh.
+	 *
+	 * @since Twenty Twenty 1.0
 	 *
 	 * @param {Object} partial  Current partial.
 	 *
@@ -25,11 +27,13 @@
 		return deferred.promise();
 	}
 
-	// Selective refresh for "Fixed Background Image"
+	// Selective refresh for "Fixed Background Image".
 	api.selectiveRefresh.partialConstructor.cover_fixed = api.selectiveRefresh.Partial.extend( {
 
 		/**
-		 * Override the refresh method
+		 * Override the refresh method.
+		 *
+		 * @since Twenty Twenty 1.0
 		 *
 		 * @return {jQuery.Promise} Resolved promise.
 		 */
@@ -49,18 +53,21 @@
 
 	} );
 
-	// Selective refresh for "Image Overlay Opacity"
+	// Selective refresh for "Image Overlay Opacity".
 	api.selectiveRefresh.partialConstructor.cover_opacity = api.selectiveRefresh.Partial.extend( {
 
 		/**
 		 * Input attributes.
 		 *
+		 * @since Twenty Twenty 1.0
 		 * @type {Object}
 		 */
 		attrs: {},
 
 		/**
-		 * Override the refresh method
+		 * Override the refresh method.
+		 *
+		 * @since Twenty Twenty 1.0
 		 *
 		 * @return {jQuery.Promise} Resolved promise.
 		 */
@@ -123,21 +130,21 @@
 			// Generate the styles.
 			// Add a small delay to be sure the accessible colors were generated.
 			setTimeout( function() {
-				Object.keys( twentyTwentyBgColors ).forEach( function( context ) {
-					twentyTwentyGenerateColorA11yPreviewStyles( context );
+				Object.keys( twentytwentyBgColors ).forEach( function( context ) {
+					twentytwentyGenerateColorA11yPreviewStyles( context );
 				} );
 			}, 50 );
 		} );
 	} );
 
 	// Add listeners for background-color settings.
-	Object.keys( twentyTwentyBgColors ).forEach( function( context ) {
-		wp.customize( twentyTwentyBgColors[ context ].setting, function( value ) {
+	Object.keys( twentytwentyBgColors ).forEach( function( context ) {
+		wp.customize( twentytwentyBgColors[ context ].setting, function( value ) {
 			value.bind( function() {
 				// Generate the styles.
 				// Add a small delay to be sure the accessible colors were generated.
 				setTimeout( function() {
-					twentyTwentyGenerateColorA11yPreviewStyles( context );
+					twentytwentyGenerateColorA11yPreviewStyles( context );
 				}, 50 );
 			} );
 		} );
@@ -146,13 +153,13 @@
 	/**
 	 * Add styles to elements in the preview pane.
 	 *
-	 * @since 1.0.0
+	 * @since Twenty Twenty 1.0
 	 *
 	 * @param {string} context The area for which we want to generate styles. Can be for example "content", "header" etc.
 	 *
 	 * @return {void}
 	 */
-	function twentyTwentyGenerateColorA11yPreviewStyles( context ) {
+	function twentytwentyGenerateColorA11yPreviewStyles( context ) {
 		// Get the accessible colors option.
 		var a11yColors = window.parent.wp.customize( 'accent_accessible_colors' ).get(),
 			stylesheedID = 'twentytwenty-customizer-styles-' + context,
@@ -165,8 +172,8 @@
 		}
 		if ( ! _.isUndefined( a11yColors[ context ] ) ) {
 			// Check if we have elements defined.
-			if ( twentyTwentyPreviewEls[ context ] ) {
-				_.each( twentyTwentyPreviewEls[ context ], function( items, setting ) {
+			if ( twentytwentyPreviewEls[ context ] ) {
+				_.each( twentytwentyPreviewEls[ context ], function( items, setting ) {
 					_.each( items, function( elements, property ) {
 						if ( ! _.isUndefined( a11yColors[ context ][ setting ] ) ) {
 							styles += elements.join( ',' ) + '{' + property + ':' + a11yColors[ context ][ setting ] + ';}';
@@ -179,8 +186,8 @@
 		stylesheet.html( styles );
 	}
 	// Generate styles on load. Handles page-changes on the preview pane.
-	$( document ).ready( function() {
-		twentyTwentyGenerateColorA11yPreviewStyles( 'content' );
-		twentyTwentyGenerateColorA11yPreviewStyles( 'header-footer' );
+	$( function() {
+		twentytwentyGenerateColorA11yPreviewStyles( 'content' );
+		twentytwentyGenerateColorA11yPreviewStyles( 'header-footer' );
 	} );
 }( jQuery, wp.customize, _ ) );

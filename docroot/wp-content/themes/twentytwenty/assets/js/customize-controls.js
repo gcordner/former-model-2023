@@ -1,10 +1,10 @@
-/* global twentyTwentyBgColors, twentyTwentyColor, jQuery, wp, _ */
+/* global twentytwentyBgColors, twentytwentyColor, jQuery, wp, _ */
 /**
  * Customizer enhancements for a better user experience.
  *
  * Contains extra logic for our Customizer controls & settings.
  *
- * @since 1.0.0
+ * @since Twenty Twenty 1.0
  */
 
 ( function() {
@@ -14,25 +14,36 @@
 		wp.customize( 'accent_hue', function( value ) {
 			value.bind( function( to ) {
 				// Update the value for our accessible colors for all areas.
-				Object.keys( twentyTwentyBgColors ).forEach( function( context ) {
+				Object.keys( twentytwentyBgColors ).forEach( function( context ) {
 					var backgroundColorValue;
-					if ( twentyTwentyBgColors[ context ].color ) {
-						backgroundColorValue = twentyTwentyBgColors[ context ].color;
+					if ( twentytwentyBgColors[ context ].color ) {
+						backgroundColorValue = twentytwentyBgColors[ context ].color;
 					} else {
-						backgroundColorValue = wp.customize( twentyTwentyBgColors[ context ].setting ).get();
+						backgroundColorValue = wp.customize( twentytwentyBgColors[ context ].setting ).get();
 					}
-					twentyTwentySetAccessibleColorsValue( context, backgroundColorValue, to );
+					twentytwentySetAccessibleColorsValue( context, backgroundColorValue, to );
 				} );
 			} );
 		} );
 
 		// Add a listener for background-color changes.
-		Object.keys( twentyTwentyBgColors ).forEach( function( context ) {
-			wp.customize( twentyTwentyBgColors[ context ].setting, function( value ) {
+		Object.keys( twentytwentyBgColors ).forEach( function( context ) {
+			wp.customize( twentytwentyBgColors[ context ].setting, function( value ) {
 				value.bind( function( to ) {
 					// Update the value for our accessible colors for this area.
-					twentyTwentySetAccessibleColorsValue( context, to, wp.customize( 'accent_hue' ).get(), to );
+					twentytwentySetAccessibleColorsValue( context, to, wp.customize( 'accent_hue' ).get(), to );
 				} );
+			} );
+		} );
+
+		// Show or hide retina_logo setting on the first load.
+		twentytwentySetRetineLogoVisibility( !! wp.customize( 'custom_logo' )() );
+
+		// Add a listener for custom_logo changes.
+		wp.customize( 'custom_logo', function( value ) {
+			value.bind( function( to ) {
+				// Show or hide retina_logo setting on changing custom_logo.
+				twentytwentySetRetineLogoVisibility( !! to );
 			} );
 		} );
 	} );
@@ -40,7 +51,7 @@
 	/**
 	 * Updates the value of the "accent_accessible_colors" setting.
 	 *
-	 * @since 1.0.0
+	 * @since Twenty Twenty 1.0
 	 *
 	 * @param {string} context The area for which we want to get colors. Can be for example "content", "header" etc.
 	 * @param {string} backgroundColor The background color (HEX value).
@@ -48,7 +59,7 @@
 	 *
 	 * @return {void}
 	 */
-	function twentyTwentySetAccessibleColorsValue( context, backgroundColor, accentHue ) {
+	function twentytwentySetAccessibleColorsValue( context, backgroundColor, accentHue ) {
 		var value, colors;
 
 		// Get the current value for our accessible colors, and make sure it's an object.
@@ -56,7 +67,7 @@
 		value = ( _.isObject( value ) && ! _.isArray( value ) ) ? value : {};
 
 		// Get accessible colors for the defined background-color and hue.
-		colors = twentyTwentyColor( backgroundColor, accentHue );
+		colors = twentytwentyColor( backgroundColor, accentHue );
 
 		// Sanity check.
 		if ( colors.getAccentColor() && 'function' === typeof colors.getAccentColor().toCSS ) {
@@ -86,5 +97,18 @@
 
 		// Small hack to save the option.
 		wp.customize( 'accent_accessible_colors' )._dirty = true;
+	}
+
+	/**
+	 * Shows or hides the "retina_logo" setting based on the given value.
+	 *
+	 * @since Twenty Twenty 1.3
+	 *
+	 * @param {boolean} visible The visible value.
+	 *
+	 * @return {void}
+	 */
+	function twentytwentySetRetineLogoVisibility( visible ) {
+		wp.customize.control( 'retina_logo' ).container.toggle( visible );
 	}
 }( jQuery ) );

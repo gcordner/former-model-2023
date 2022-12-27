@@ -4,20 +4,22 @@
  *
  * @package WordPress
  * @subpackage Twenty_Twenty
- * @since 1.0.0
+ * @since Twenty Twenty 1.0
  */
 
 if ( ! function_exists( 'twentytwenty_the_theme_svg' ) ) {
 	/**
 	 * Output and Get Theme SVG.
-	 * Output and get the SVG markup for an icon in the TwentyTwenty_SVG_Icons class.
+	 * Output and get the SVG markup for an icon in the twentytwenty_SVG_Icons class.
+	 *
+	 * @since Twenty Twenty 1.0
 	 *
 	 * @param string $svg_name The name of the icon.
-	 * @param string $group The group the icon belongs to.
-	 * @param string $color Color code.
+	 * @param string $group    The group the icon belongs to.
+	 * @param string $color    Color code.
 	 */
 	function twentytwenty_the_theme_svg( $svg_name, $group = 'ui', $color = '' ) {
-		echo twentytwenty_get_theme_svg( $svg_name, $group, $color ); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped in twentytwenty_get_theme_svg();.
+		echo twentytwenty_get_theme_svg( $svg_name, $group, $color ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped in twentytwenty_get_theme_svg().
 	}
 }
 
@@ -26,15 +28,17 @@ if ( ! function_exists( 'twentytwenty_get_theme_svg' ) ) {
 	/**
 	 * Get information about the SVG icon.
 	 *
+	 * @since Twenty Twenty 1.0
+	 *
 	 * @param string $svg_name The name of the icon.
-	 * @param string $group The group the icon belongs to.
-	 * @param string $color Color code.
+	 * @param string $group    The group the icon belongs to.
+	 * @param string $color    Color code.
 	 */
 	function twentytwenty_get_theme_svg( $svg_name, $group = 'ui', $color = '' ) {
 
 		// Make sure that only our allowed tags and attributes are included.
 		$svg = wp_kses(
-			TwentyTwenty_SVG_Icons::get_svg( $svg_name, $group, $color ),
+			twentytwenty_SVG_Icons::get_svg( $svg_name, $group, $color ),
 			array(
 				'svg'     => array(
 					'class'       => true,

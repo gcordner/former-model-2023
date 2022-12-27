@@ -4,18 +4,22 @@
  *
  * @package WordPress
  * @subpackage Twenty_Twenty
- * @since 1.0.0
+ * @since Twenty Twenty 1.0
  */
 
 if ( class_exists( 'WP_Customize_Control' ) ) {
 
-	if ( ! class_exists( 'TwentyTwenty_Separator_Control' ) ) {
+	if ( ! class_exists( 'twentytwenty_Separator_Control' ) ) {
 		/**
 		 * Separator Control.
+		 *
+		 * @since Twenty Twenty 1.0
 		 */
-		class TwentyTwenty_Separator_Control extends WP_Customize_Control {
+		class twentytwenty_Separator_Control extends WP_Customize_Control {
 			/**
 			 * Render the hr.
+			 *
+			 * @since Twenty Twenty 1.0
 			 */
 			public function render_content() {
 				echo '<hr/>';
