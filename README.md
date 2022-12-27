@@ -9,7 +9,7 @@ Features:
 1. Clone this repo into your Projects directory
 
     ```
-    git clone https://github.com/docksal/boilerplate-wordpress.git wordpress
+    git clone git@github.com:gcordner/gpc-wp-boilerplate.git
     cd wordpress
     ```
 
@@ -27,6 +27,6 @@ Features:
     http://wordpress.docksal
     ```
     
-## Install phpcs
+## TwentyTwenty will be the foundation for our new theme.
 
-1. Follow the instructions here: https://docs.docksal.io/tools/phpcs/
+
