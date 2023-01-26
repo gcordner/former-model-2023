@@ -10,4 +10,7 @@ docroot/wp-content/themes/undergpc/node_modules/
 docroot/wp-content/themes/undergpc/vendor/
 docroot/wp-content/themes/undergpc/node_modules/*
 docroot/wp-content/themes/undergpc/vendor/*
+docroot/wp-content/ai1wm-backups/
+docroot/wp-content/db.php
+docroot/wp-content/uploads/
 
