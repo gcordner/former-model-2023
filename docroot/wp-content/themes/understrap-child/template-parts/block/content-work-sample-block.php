@@ -9,30 +9,46 @@
 
 	$img = get_field( 'image' );
 if ( ! empty( $img ) ) {
-	$img_url	   = $img['url'];
-	$img_id        = $img['id'];
-	$alt           = $img['alt'];
-	$caption       = $img['caption'];
-	$url		   = get_field( 'url' );
-	$block_caption = get_field( 'caption' );
+	$img_url          = $img['url'];
+	$img_id           = $img['id'];
+	$alt              = $img['alt'];
+	$url              = get_field( 'url' );
+	$block_caption    = get_field( 'caption' );
+	$block_title      = get_field( 'title' );
+	$block_content    = get_field( 'details' );
+	$block_technology = get_field( 'technologies' );
 }
 ?>
 
 
-<!-- CUSTOM IMAGE BLOCK -->
-<figure id="attachment_<?php echo esc_html( $img_id ); ?>" aria-describedby="caption-attachment-<?php echo esc_html( $img_id ); ?>" class="wp-caption aligncenter img-<?php echo esc_html( $orientation ); ?>">
+<div class = "work-block__container">
+<figure id="attachment_<?php echo esc_html( $img_id ); ?>" class="wp-caption aligncenter img-<?php echo esc_html( $orientation ); ?>">
 <img loading="lazy" class="size-full wp-image-<?php echo esc_html( $img_id ); ?>" src="<?php echo esc_html( $img_url ); ?>" alt="<?php echo esc_html( $alt ); ?>">
-<figcaption id="caption-attachment-<?php echo esc_html( $img_id ); ?>" class="wp-caption-text">
-<?php
-if ( ! empty( $url ) ) {
-	echo wp_kses_post( $url );
-} 
-?>
-</figcaption>
+
 </figure> 
+<div class="work-block__title">
+<p><?php if ( ! empty( $url ) ) : ?>
+<a href="<?php echo wp_kses_post( $url ); ?>" target="_blank" rel="nofollow"> 
+	<?php echo wp_kses_post( $block_title ); ?></a>
+<?php else : ?>
+	<?php echo wp_kses_post( $block_title ); ?>
+<?php endif; ?></p>
+</div>
+<div class="work-block__content">
+<?php echo wp_kses_post( $block_content ); ?>
+</div>
 
+<?php
+if ( ! empty( $block_technology ) ) :
+	?>
+<div class="work-block__technology"></p>
+	<?php
+	echo wp_kses_post( $block_technology );
+	?>
+</p></div>
+<?php endif; ?>
 
-
+</div>
 <!-- END CUSTOM IMAGE BLOCK -->
 
 
