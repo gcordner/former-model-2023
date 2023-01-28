@@ -28,16 +28,15 @@ class GetThemeModReturnType implements DynamicFunctionReturnTypeExtension {
 	 *
 	 * @var array<int,string>
 	 */
-	private static $themeMods = [
+	private static $themeMods = array(
 		'understrap_bootstrap_version',
 		'understrap_container_type',
 		'understrap_navbar_type',
 		'understrap_sidebar_position',
 		'understrap_site_info_override',
-	];
+	);
 
-	public function isFunctionSupported(FunctionReflection $functionReflection): bool
-	{
+	public function isFunctionSupported( FunctionReflection $functionReflection ): bool {
 		return $functionReflection->getName() === 'get_theme_mod';
 	}
 
@@ -45,30 +44,29 @@ class GetThemeModReturnType implements DynamicFunctionReturnTypeExtension {
 		FunctionReflection $functionReflection,
 		FuncCall $functionCall,
 		Scope $scope
-	): Type
-	{
-		$argType = $scope->getType($functionCall->getArgs()[0]->value);
+	): Type {
+		$argType     = $scope->getType( $functionCall->getArgs()[0]->value );
 		$defaultType = ParametersAcceptorSelector::selectFromArgs(
 			$scope,
 			$functionCall->getArgs(),
 			$functionReflection->getVariants()
 		)->getReturnType();
 
-		if (!$argType instanceof ConstantStringType) {
+		if ( ! $argType instanceof ConstantStringType ) {
 			return $defaultType;
 		}
 
 		// Return the default value if it is not an Understrap specific theme mod.
-		if (!in_array($argType->getValue(), self::$themeMods, true)) {
+		if ( ! in_array( $argType->getValue(), self::$themeMods, true ) ) {
 			return $defaultType;
 		}
 
 		// Without second argument the default value is false, but can be filtered.
 		$defaultType = new MixedType();
-		if (count($functionCall->getArgs()) > 1) {
-			$defaultType = $scope->getType($functionCall->getArgs()[1]->value);
+		if ( count( $functionCall->getArgs() ) > 1 ) {
+			$defaultType = $scope->getType( $functionCall->getArgs()[1]->value );
 		}
 
-		return TypeCombinator::union(new StringType(), $defaultType);
+		return TypeCombinator::union( new StringType(), $defaultType );
 	}
 }

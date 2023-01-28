@@ -93,7 +93,7 @@ add_action( 'customize_controls_enqueue_scripts', 'understrap_child_customize_co
 add_action( 'acf/init', 'my_acf_init' );
 function my_acf_init() {
 
-	// check function exists
+	// check function exists.
 	if ( function_exists( 'acf_register_block' ) ) {
 
 		// register a custom image block.
@@ -113,11 +113,50 @@ function my_acf_init() {
 
 function my_acf_block_render_callback( $block ) {
 
-	// convert name ("acf/custom-image-block") into path friendly slug ("custom-image-block")
+	// convert name ("acf/custom-image-block") into path friendly slug ("custom-image-block").
 	$slug = str_replace( 'acf/', '', $block['name'] );
 
-	// include a template part from within the "template-parts/block" folder
+	// include a template part from within the "template-parts/block" folder.
 	if ( file_exists( get_theme_file_path( "/template-parts/block/content-{$slug}.php" ) ) ) {
 		include get_theme_file_path( "/template-parts/block/content-{$slug}.php" );
 	}
 }
+
+// Allow SVG.
+add_filter(
+	'wp_check_filetype_and_ext',
+	function( $data, $file, $filename, $mimes ) {
+
+		global $wp_version;
+		if ( '4.7.1' !== $wp_version ) {
+			return $data;
+		}
+
+		$filetype = wp_check_filetype( $filename, $mimes );
+
+		return array(
+			'ext'             => $filetype['ext'],
+			'type'            => $filetype['type'],
+			'proper_filename' => $data['proper_filename'],
+		);
+
+	},
+	10,
+	4
+);
+
+function cc_mime_types( $mimes ) {
+	$mimes['svg'] = 'image/svg+xml';
+	return $mimes;
+}
+  add_filter( 'upload_mimes', 'cc_mime_types' );
+
+function fix_svg() {
+	echo '<style type="text/css">
+		  .attachment-266x266, .thumbnail img {
+			   width: 100% !important;
+			   height: auto !important;
+		  }
+		  </style>';
+}
+  add_action( 'admin_head', 'fix_svg' );
