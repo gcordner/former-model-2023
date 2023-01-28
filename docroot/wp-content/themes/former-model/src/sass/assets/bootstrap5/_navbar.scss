@@ -76,7 +76,16 @@
     color: var(--#{$prefix}navbar-brand-hover-color);
     text-decoration: if($link-hover-decoration == underline, none, null);
   }
+  img {
+    max-width: 200px;
+  }
+  @include media-breakpoint-up(md) {
+    img {
+      max-width: 300px;
+    }
+  }
 }
+
 
 
 // Navbar nav

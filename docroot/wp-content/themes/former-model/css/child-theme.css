@@ -4657,6 +4657,14 @@ textarea.form-control-lg {
 .navbar-brand:hover, .navbar-brand:focus {
   color: var(--bs-navbar-brand-hover-color);
 }
+.navbar-brand img {
+  max-width: 200px;
+}
+@media (min-width: 768px) {
+  .navbar-brand img {
+    max-width: 300px;
+  }
+}
 
 .navbar-nav {
   --bs-nav-link-padding-x: 0;
@@ -11709,10 +11717,10 @@ body {
 }
 
 p {
-  margin-bottom: 1.5rem !important;
   font-weight: 400;
-  letter-spacing: 0.9px !important;
-  line-height: 1.63 !important;
+  letter-spacing: 0.9px;
+  line-height: 1.63;
+  margin-bottom: 1.5rem;
 }
 
 .wrapper {
@@ -11917,12 +11925,12 @@ a.skip-link:not(:focus):not(:focus-within) {
   margin-left: 0.75rem;
 }
 .wp-block-search.wp-block-search__button-inside .wp-block-search__inside-wrapper {
-  border: none;
+  border: 0;
   padding: 0;
 }
 .wp-block-search.wp-block-search__button-inside .wp-block-search__inside-wrapper .wp-block-search__input {
-  border-radius: 0.375rem;
   border: 1px solid #ced4da;
+  border-radius: 0.375rem;
   padding: 0.375rem 0.75rem;
 }
 .wp-block-search.wp-block-search__button-inside .wp-block-search__button {

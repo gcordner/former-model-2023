@@ -1,23 +1,24 @@
 body {
-	overflow-x: hidden; // Fix for Windows Chrome horizontal scrollbar.
+  overflow-x: hidden; // Fix for Windows Chrome horizontal scrollbar.
 }
 
 p {
-	margin-bottom: 1.5rem !important;
-	font-weight: 400;
-	letter-spacing: .9px !important;
-	line-height: 1.63 !important;
-  }
+  font-weight: 400;
+  letter-spacing: .9px;
+  line-height: 1.63;
+  margin-bottom: 1.5rem;
+
+}
 
 
 // Some basic padding for all wrappers
 .wrapper {
-	padding: $grid-gutter-width 0;
+  padding: $grid-gutter-width 0;
 }
 
 // Reset hero wrapper padding to 0
 #wrapper-hero {
-	padding: 0 !important;
+  padding: 0 !important;
 }
 
 // Adding basic WordPress classes to pass the WordPress.org tests
@@ -26,12 +27,12 @@ p {
 .bypostauthor,
 .wp-caption,
 .wp-caption-text {
-	font-size: inherit;
+  font-size: inherit;
 }
 
 // Separate sticky wrapper from main content
 .wrapper#wrapper-sticky {
-	border-bottom: 1px solid $gray-300;
+  border-bottom: 1px solid $gray-300;
 }
 
 // Adding some contrast background color to footer full widget
@@ -41,37 +42,40 @@ p {
 }
 
 .screen-reader-text {
-	@if variable-exists('bootstrap4') {
-		@include sr-only();
-	} @else {
-		@include visually-hidden();
-	}
+  @if variable-exists('bootstrap4') {
+    @include sr-only();
+  }
+
+  @else {
+    @include visually-hidden();
+  }
 }
 
 .alignleft {
-	display: inline;
-	float: left;
-	margin-right: $spacer;
+  display: inline;
+  float: left;
+  margin-right: $spacer;
 }
 
 .alignright {
-	display: inline;
-	float: right;
-	margin-left: $spacer;
+  display: inline;
+  float: right;
+  margin-left: $spacer;
 }
 
 .aligncenter {
-	@extend .mx-auto;
-	display: block;
+  @extend .mx-auto;
+  display: block;
 }
 
 .widget_archive {
 
-	select {
-		display: block;
-		width: 100%;
+  select {
+    display: block;
+  	width: 100%;
 
-		@if variable-exists("bootstrap4") { // replicates relevant parts of .form-control
+		@if variable-exists("bootstrap4") {
+			// replicates relevant parts of .form-control
 			height: $input-height;
 			padding: $input-padding-y $input-padding-x;
 			font-family: $input-font-family;
@@ -97,7 +101,10 @@ p {
 
 			// Customize the `:focus` state to imitate native WebKit styles.
 			@include form-control-focus($ignore-warning: true);
-		} @else { // replicates relevant parts of .form-select
+		}
+
+		@else {
+			// replicates relevant parts of .form-select
 			padding: $form-select-padding-y $form-select-indicator-padding $form-select-padding-y $form-select-padding-x;
 			-moz-padding-start: subtract($form-select-padding-x, 3px);
 			font-family: $form-select-font-family;
@@ -125,7 +132,9 @@ p {
 				@if $enable-shadows {
 
 					@include box-shadow($form-select-box-shadow, $form-select-focus-box-shadow);
-				} @else {
+				}
+
+				@else {
 					// Avoid using mixin so we can pass custom focus shadow properly
 					box-shadow: $form-select-focus-box-shadow;
 				}
@@ -159,7 +168,9 @@ a.skip-link {
 	@if variable-exists('bootstrap4') {
 		@include sr-only();
 		@include sr-only-focusable();
-	} @else {
+	}
+
+	@else {
 		@include visually-hidden-focusable();
 	}
 }
@@ -229,6 +240,7 @@ a.skip-link {
 .gallery {
 	margin-bottom: 1.5em;
 }
+
 .gallery-item {
 	display: inline-block;
 	text-align: center;
@@ -237,10 +249,11 @@ a.skip-link {
 
 	@for $i from 2 through 9 {
 		.gallery-columns-#{$i} & {
-			max-width: floor( percentage( 1 / $i ) * 100 ) / 100;
+			max-width: floor(percentage(1 / $i ) * 100) / 100;
 		}
 	}
 }
+
 .gallery-caption {
 	display: block;
 }
@@ -252,7 +265,9 @@ a.skip-link {
 
 		@if variable-exists("bootstrap4") {
 			margin-left: $form-grid-gutter-width;
-		} @else {
+		}
+
+		@else {
 			margin-left: $grid-gutter-width * 0.5;
 		}
 	}
@@ -260,12 +275,12 @@ a.skip-link {
 	&.wp-block-search__button-inside {
 
 		.wp-block-search__inside-wrapper {
-			border: none;
+			border: 0;
 			padding: 0;
 
 			.wp-block-search__input {
-				border-radius: $input-border-radius;
 				border: $input-border-width solid $input-border-color;
+				border-radius: $input-border-radius;
 				padding: $input-padding-y $input-padding-x;
 			}
 		}
