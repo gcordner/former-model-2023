@@ -9,8 +9,8 @@ Features:
 1. Clone this repo into your Projects directory
 
     ```
-    git clone git@github.com:gcordner/gpc-wp-boilerplate.git
-    cd wordpress
+    git clone git@github.com:gcordner/former-model-2023.git
+    cd former-model-2023
     ```
 
 1. Initialize the site
@@ -24,25 +24,23 @@ Features:
 1. Point your browser to
 
     ```
-    http://wordpress.docksal
+    http://former-model-2023.docksal
     ```
     
-## For the Twenty Twenty theme:
+## For the understrap-child theme:
+This theme is a child theme of understrap. 
 
-### Set up using wpgulp
-[https://github.com/ahmadawais/WPGulp](https://github.com/ahmadawais/WPGulp)
+## NPM and build process:
+This theme uses npm as manager for dependency packages like Bootstrap and Underscores. Make sure you have npm running, and start by running
+ ```
+ npm install
+ ```
 
-From within the theme, run:
+To work and compile your Sass files on the fly start, (without browser sync):
 ```
-# 1— Install WPGulp in your WordPress theme/plugin.
-npx wpgulp
-# 2— Now configure variables inside the `wpgulp.config.js` file.
-# 3— Start your npm build workflow.
-npm start
+npm run watch
 ```
-## For the Undergpc theme:
-This theme is based on automattic's _s
-To set up composer and npm, read [this](https://github.com/Automattic/_s#setup).
+
 
 ###Available cli commands:
 ```
