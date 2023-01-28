@@ -2,6 +2,13 @@ body {
 	overflow-x: hidden; // Fix for Windows Chrome horizontal scrollbar.
 }
 
+p {
+	margin-bottom: 1.5rem !important;
+	font-weight: 400;
+	letter-spacing: .9px !important;
+	line-height: 1.63 !important;
+  }
+
 
 // Some basic padding for all wrappers
 .wrapper {
