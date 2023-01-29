@@ -79,7 +79,7 @@
   img {
     max-width: 200px;
   }
-  @include media-breakpoint-up(md) {
+  @include media-breakpoint-up(lg) {
     img {
       max-width: 300px;
     }
@@ -97,7 +97,7 @@
   --#{$prefix}nav-link-padding-x: 0;
   --#{$prefix}nav-link-padding-y: #{$nav-link-padding-y};
   @include rfs($nav-link-font-size, --#{$prefix}nav-link-font-size);
-  --#{$prefix}nav-link-font-weight: #{$nav-link-font-weight};
+  // --#{$prefix}nav-link-font-weight: #{$nav-link-font-weight};
   --#{$prefix}nav-link-color: var(--#{$prefix}navbar-color);
   --#{$prefix}nav-link-hover-color: var(--#{$prefix}navbar-hover-color);
   --#{$prefix}nav-link-disabled-color: var(--#{$prefix}navbar-disabled-color);
@@ -108,6 +108,7 @@
   padding-left: 0;
   margin-bottom: 0;
   list-style: none;
+
 
   .show > .nav-link,
   .nav-link.active {

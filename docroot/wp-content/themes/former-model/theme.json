@@ -272,44 +272,39 @@
 			"palette": [
 				{
 					"slug": "white",
-					"color": "#ffffff",
+					"color": "#FCFCFA",
 					"name": "White"
 				},
 				{
 					"slug": "black",
-					"color": "#000000",
+					"color": "#262626",
 					"name": "Black"
 				},
 				{
-					"slug": "green-dark",
-					"color": "#153e35",
-					"name": "Dark Green"
+					"slug": "blue-light",
+					"color": "#99AABF",
+					"name": "Light Blue"
 				},
 				{
-					"slug": "green-light",
-					"color": "#c4d600",
-					"name": "Light Green"
+					"slug": "blue-steel",
+					"color": "#5D6C8C",
+					"name": "Steel Blue"
 				},
 				
 				{
-					"slug": "grey-lighter",
-					"color":  "#b3b3b3",
-					"name": "Lighter Grey"
-				},
-				{
 					"slug": "grey-light",
-					"color": "#999999",
+					"color":  "#F0F0F0",
 					"name": "Light Grey"
 				},
 				{
-					"slug": "grey",
-					"color":  "#808080",
-					"name": "Grey"
+					"slug": "grey-dark",
+					"color": "#595959",
+					"name": "Dark Grey"
 				},
 				{
-					"slug": "grey-dark",
-					"color": "#666666",
-					"name": "Dark Grey"
+					"slug": "grey",
+					"color":  "#8B8B8B",
+					"name": "Grey"
 				},
 				{
 					"slug": "grey-darker",
@@ -317,14 +312,9 @@
 					"name": "Darker Grey"
 				},
 				{
-					"slug": "salmon",
-					"color":  "#ff7d55",
-					"name": "Kanopi Orange"
-				},
-				{
-					"slug": "salmon-dark",
-					"color":  "#c73e14",
-					"name": "Orange Dark"
+					"slug": "yellow",
+					"color":  "#F2B035",
+					"name": "Yellow"
 				},
 				{
 					"slug": "transparent",
