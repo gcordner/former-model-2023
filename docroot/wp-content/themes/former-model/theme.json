@@ -272,22 +272,32 @@
 			"palette": [
 				{
 					"slug": "white",
-					"color": "#FCFCFA",
+					"color": "#FFFFFF",
 					"name": "White"
 				},
 				{
+					"slug": "off-white",
+					"color": "#f4fafb",
+					"name": "Off White"
+				},
+				{
 					"slug": "black",
-					"color": "#262626",
+					"color": "#0d0d0d",
 					"name": "Black"
 				},
 				{
-					"slug": "blue-light",
-					"color": "#99AABF",
+					"slug": "light-blue",
+					"color": "#b4d2d9",
 					"name": "Light Blue"
 				},
 				{
-					"slug": "blue-steel",
-					"color": "#5D6C8C",
+					"slug": "blue",
+					"color": "#2675a6",
+					"name": "Blue"
+				},
+				{
+					"slug": "steel-blue",
+					"color": "#498ba6",
 					"name": "Steel Blue"
 				},
 				
