@@ -300,6 +300,11 @@
 					"color": "#498ba6",
 					"name": "Steel Blue"
 				},
+				{
+					"slug": "dark-blue",
+					"color": "#162c40",
+					"name": "Dark Blue"
+				},
 				
 				{
 					"slug": "grey-light",
@@ -308,18 +313,13 @@
 				},
 				{
 					"slug": "grey-dark",
-					"color": "#595959",
+					"color": "#5b5e5f",
 					"name": "Dark Grey"
 				},
 				{
 					"slug": "grey",
 					"color":  "#8B8B8B",
 					"name": "Grey"
-				},
-				{
-					"slug": "grey-darker",
-					"color":  "#4d4d4d",
-					"name": "Darker Grey"
 				},
 				{
 					"slug": "yellow",

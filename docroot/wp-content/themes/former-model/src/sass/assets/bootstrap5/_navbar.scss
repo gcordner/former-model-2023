@@ -66,10 +66,17 @@
   padding-top: var(--#{$prefix}navbar-brand-padding-y);
   padding-bottom: var(--#{$prefix}navbar-brand-padding-y);
   margin-right: var(--#{$prefix}navbar-brand-margin-end);
-  @include font-size(var(--#{$prefix}navbar-brand-font-size));
+  // @include font-size(var(--#{$prefix}navbar-brand-font-size));
   color: var(--#{$prefix}navbar-brand-color);
   text-decoration: if($link-decoration == none, null, none);
   white-space: nowrap;
+  font-style: italic;
+  
+  .h1-mimic {
+    a {
+      font-size: 3.5rem;
+    }
+  }
 
   &:hover,
   &:focus {
@@ -85,6 +92,8 @@
     }
   }
 }
+
+
 
 
 

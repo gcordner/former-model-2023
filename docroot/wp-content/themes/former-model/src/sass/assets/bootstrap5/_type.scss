@@ -1,27 +1,33 @@
 //
 // Headings
 //
-.h1 {
+.h1,
+.h1-mimic {
   @extend h1;
 }
 
-.h2 {
+.h2,
+.h2-mimic {
   @extend h2;
 }
 
-.h3 {
+.h3,
+.h3-mimic {
   @extend h3;
 }
 
-.h4 {
+.h4,
+.h4-mimic {
   @extend h4;
 }
 
-.h5 {
+.h5,
+.h5-mimic {
   @extend h5;
 }
 
-.h6 {
+.h6,
+.h6-mimic {
   @extend h6;
 }
 
@@ -32,7 +38,8 @@
 }
 
 // Type display classes
-@each $display, $font-size in $display-font-sizes {
+@each $display,
+$font-size in $display-font-sizes {
   .display-#{$display} {
     @include font-size($font-size);
     font-family: $display-font-family;
@@ -65,6 +72,7 @@
 .list-inline {
   @include list-unstyled();
 }
+
 .list-inline-item {
   display: inline-block;
 
@@ -104,3 +112,4 @@
     content: "\2014\00A0"; // em dash, nbsp
   }
 }
+
