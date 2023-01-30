@@ -2,7 +2,7 @@
 /**
  * Load PHPStan extensions
  *
- * @package Understrap
+ * @package former-model
  */
 
 require_once __DIR__ . '/GetThemeModReturnType.php';

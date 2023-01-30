@@ -2,7 +2,7 @@
 /**
  * Hero setup
  *
- * @package Understrap
+ * @package former-model
  */
 
 // Exit if accessed directly.

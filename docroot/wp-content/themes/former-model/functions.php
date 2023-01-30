@@ -2,7 +2,7 @@
 /**
  * Understrap Child Theme functions and definitions
  *
- * @package UnderstrapChild
+ * @package former-model
  */
 
 // Exit if accessed directly.

@@ -2,7 +2,7 @@
 /**
  * Header Navbar (bootstrap4)
  *
- * @package Understrap
+ * @package former-model
  * @since 1.1.0
  */
 

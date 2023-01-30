@@ -2,7 +2,7 @@
 /**
  * Navbar branding
  *
- * @package Understrap
+ * @package former-model
  * @since 1.2.0
  */
 

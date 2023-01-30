@@ -2,7 +2,7 @@
 /**
  * Understrap Theme Customizer
  *
- * @package Understrap
+ * @package former-model
  */
 
 // Exit if accessed directly.

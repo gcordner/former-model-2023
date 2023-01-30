@@ -2,7 +2,7 @@
 /**
  * Right sidebar check
  *
- * @package Understrap
+ * @package former-model
  */
 
 // Exit if accessed directly.

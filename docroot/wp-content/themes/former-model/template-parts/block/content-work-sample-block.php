@@ -4,7 +4,7 @@
  *
  * This is the template that displays the custom image block.
  *
- * @package geoffcordner
+ * @package former-model
  */
 
 	$img = get_field( 'image' );

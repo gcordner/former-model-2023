@@ -2,7 +2,7 @@
 /**
  * Dynamic return type for get_theme_mod()
  *
- * @package Understrap
+ * @package former-model
  */
 
 namespace Understrap\PHPStan;
