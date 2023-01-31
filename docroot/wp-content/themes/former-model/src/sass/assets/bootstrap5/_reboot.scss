@@ -93,6 +93,7 @@ hr {
 h1 {
   @extend %heading;
   @include font-size($h1-font-size);
+  margin-bottom: 0;
 }
 
 h2 {

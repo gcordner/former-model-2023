@@ -51,8 +51,10 @@ window.addEventListener("scroll", function() {
   let navbar = document.querySelector('#main-nav')
   if (scroll >= 100) {
     navbar.classList.add("header__main-nav__scrolled");
+    navbar.classList.remove("p-3");
   } else {
     navbar.classList.remove("header__main-nav__scrolled");
+    navbar.classList.add("p-3");
   }
 });
 </script>

@@ -3,10 +3,15 @@
 // Provide a static navbar from which we expand to create full-width, fixed, and
 // other navbar variations.
 
+#wrapper-navbar {
+  width: 100%;
+  position: fixed;
+}
+
 .navbar {
   // scss-docs-start navbar-css-vars
   --#{$prefix}navbar-padding-x: #{if($navbar-padding-x == null, 0, $navbar-padding-x)};
-  --#{$prefix}navbar-padding-y: #{$navbar-padding-y};
+  // --#{$prefix}navbar-padding-y: #{$navbar-padding-y};
   --#{$prefix}navbar-color: #{$navbar-light-color};
   --#{$prefix}navbar-hover-color: #{$navbar-light-hover-color};
   --#{$prefix}navbar-disabled-color: #{$navbar-light-disabled-color};
@@ -63,8 +68,10 @@
 // Used for brand, project, or site names.
 
 .navbar-brand {
-  padding-top: var(--#{$prefix}navbar-brand-padding-y);
-  padding-bottom: var(--#{$prefix}navbar-brand-padding-y);
+  // padding-top: var(--#{$prefix}navbar-brand-padding-y);
+  // padding-bottom: var(--#{$prefix}navbar-brand-padding-y);
+  padding-top: 0;
+  padding-bottom: 0;
   margin-right: var(--#{$prefix}navbar-brand-margin-end);
   // @include font-size(var(--#{$prefix}navbar-brand-font-size));
   color: var(--#{$prefix}navbar-brand-color);

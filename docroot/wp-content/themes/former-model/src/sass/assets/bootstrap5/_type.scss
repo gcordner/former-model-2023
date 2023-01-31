@@ -31,6 +31,10 @@
   @extend h6;
 }
 
+.navbar-brand .h1-mimic {
+  margin-bottom: 50px;
+}
+
 
 .lead {
   @include font-size($lead-font-size);
