@@ -15108,7 +15108,6 @@ figure.woocommerce-product-gallery__wrapper {
 @media (min-width: 992px) {
   .navbar-brand.h1-mimic {
     font-size: 4.5rem !important;
-    transition: font-size 0.15s ease-in-out;
   }
 }
 
