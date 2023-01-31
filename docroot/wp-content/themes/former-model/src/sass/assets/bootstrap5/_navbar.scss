@@ -5,7 +5,8 @@
 
 #wrapper-navbar {
   width: 100%;
-  position: fixed;
+  position: sticky;
+  top: 0;
 }
 
 .navbar {

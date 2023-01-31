@@ -4647,7 +4647,8 @@ textarea.form-control-lg {
 
 #wrapper-navbar {
   width: 100%;
-  position: fixed;
+  position: sticky;
+  top: 0;
 }
 
 .navbar {
@@ -15114,6 +15115,7 @@ figure.woocommerce-product-gallery__wrapper {
 @media (min-width: 992px) {
   .header__main-nav__scrolled .navbar-brand.h1-mimic {
     font-size: 3.5rem !important;
+    transition: font-size 0.2s ease-in-out;
   }
 }
 .has-blue-color,
