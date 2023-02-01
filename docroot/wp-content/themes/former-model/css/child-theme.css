@@ -4653,20 +4653,20 @@ textarea.form-control-lg {
 
 .navbar {
   --bs-navbar-padding-x: 0;
-  --bs-navbar-color: rgba(13, 13, 13, 0.55);
-  --bs-navbar-hover-color: rgba(13, 13, 13, 0.7);
+  --bs-navbar-color: #0d0d0d;
+  --bs-navbar-hover-color: #498ba6;
   --bs-navbar-disabled-color: rgba(13, 13, 13, 0.3);
-  --bs-navbar-active-color: rgba(13, 13, 13, 0.9);
+  --bs-navbar-active-color: #498ba6;
   --bs-navbar-brand-padding-y: 0.0625rem;
   --bs-navbar-brand-margin-end: 1rem;
   --bs-navbar-brand-font-size: 1.25rem;
-  --bs-navbar-brand-color: rgba(13, 13, 13, 0.9);
-  --bs-navbar-brand-hover-color: rgba(13, 13, 13, 0.9);
+  --bs-navbar-brand-color: #498ba6;
+  --bs-navbar-brand-hover-color: #498ba6;
   --bs-navbar-nav-link-padding-x: 0.5rem;
   --bs-navbar-toggler-padding-y: 0.25rem;
   --bs-navbar-toggler-padding-x: 0.75rem;
   --bs-navbar-toggler-font-size: 1.25rem;
-  --bs-navbar-toggler-icon-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%2813, 13, 13, 0.55%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+  --bs-navbar-toggler-icon-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%230d0d0d' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
   --bs-navbar-toggler-border-color: rgba(13, 13, 13, 0.1);
   --bs-navbar-toggler-border-radius: 0.375rem;
   --bs-navbar-toggler-focus-width: 0.25rem;
@@ -11912,10 +11912,10 @@ a.skip-link:not(:focus):not(:focus-within) {
 }
 
 .navbar-light .navbar-brand a {
-  color: rgba(13, 13, 13, 0.9);
+  color: #498ba6;
 }
 .navbar-light .navbar-brand a:hover, .navbar-light .navbar-brand a:focus {
-  color: rgba(13, 13, 13, 0.9);
+  color: #498ba6;
 }
 
 .navbar-dark .navbar-brand a {
