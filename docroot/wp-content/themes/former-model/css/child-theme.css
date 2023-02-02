@@ -15101,6 +15101,10 @@ figure.woocommerce-product-gallery__wrapper {
   display: block;
 }
 
+.footer {
+  background-color: #b4d2d9;
+}
+
 .navbar-brand.h1-mimic {
   color: #162c40;
   font-size: 2.5rem !important;
