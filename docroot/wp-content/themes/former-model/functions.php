@@ -160,3 +160,38 @@ function fix_svg() {
 		  </style>';
 }
   add_action( 'admin_head', 'fix_svg' );
+
+/**
+ * Restrict blocks in editor.
+ *
+ * @return array
+ */
+function allowed_block_types() {
+ 
+	$allowed_blocks = array();
+	$acf_blocks     = acf_get_block_types();
+	foreach ( $acf_blocks as $acf_block ) :
+		$allowed_blocks[] = $acf_block['name'];
+	endforeach;
+ 
+	// add in core blocks.
+	$allowed_blocks[] = 'core/heading';
+	$allowed_blocks[] = 'core/paragraph';
+	$allowed_blocks[] = 'core/list';
+	$allowed_blocks[] = 'core/image';
+	$allowed_blocks[] = 'core/gallery';
+	$allowed_blocks[] = 'core/pullquote';
+	$allowed_blocks[] = 'core/spacer';
+	$allowed_blocks[] = 'core/separator';
+	$allowed_blocks[] = 'core/embed';
+	$allowed_blocks[] = 'core/column';
+	$allowed_blocks[] = 'core/columns';
+	$allowed_blocks[] = 'core/shortcode';
+	$allowed_blocks[] = 'core/code';
+ 
+	// allow code block pro too.
+	$allowed_blocks[] = 'kevinbatdorf/code-block-pro';
+ 
+	return $allowed_blocks;
+}
+add_filter( 'allowed_block_types_all', 'allowed_block_types' );
