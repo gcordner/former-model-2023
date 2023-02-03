@@ -33,7 +33,6 @@ class GetThemeModReturnType implements DynamicFunctionReturnTypeExtension {
 		'understrap_container_type',
 		'understrap_navbar_type',
 		'understrap_sidebar_position',
-		'understrap_site_info_override',
 	);
 
 	public function isFunctionSupported( FunctionReflection $functionReflection ): bool {
