@@ -214,7 +214,6 @@ h6, .h6,
 h1, .h1,
 .h1-mimic {
   font-size: calc(1.375rem + 1.5vw);
-  margin-bottom: 0;
 }
 @media (min-width: 1200px) {
   h1, .h1,
@@ -4649,6 +4648,7 @@ textarea.form-control-lg {
   width: 100%;
   position: sticky;
   top: 0;
+  z-index: 999;
 }
 
 .navbar {
@@ -15121,6 +15121,11 @@ figure.woocommerce-product-gallery__wrapper {
     transition: font-size 0.2s ease-in-out;
   }
 }
+.site-main__single-post {
+  max-width: 992px;
+  margin: auto;
+}
+
 .has-blue-color,
 .has-blue-color:visited {
   color: #2675a6;
