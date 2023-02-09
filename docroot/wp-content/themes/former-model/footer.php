@@ -49,7 +49,7 @@ $container = get_theme_mod( 'understrap_container_type' );
 window.addEventListener("scroll", function() {    
   let scroll = window.pageYOffset || document.documentElement.scrollTop;
   let navbar = document.querySelector('#main-nav')
-  if (scroll >= 100) {
+  if (scroll >= 1) {
     navbar.classList.add("header__main-nav__scrolled");
     navbar.classList.remove("p-3");
   } else {
