@@ -155,6 +155,7 @@ function allowed_block_types() {
 	$allowed_blocks[] = 'core/code';
 	$allowed_blocks[] = 'core/button';
 	$allowed_blocks[] = 'core/buttons';
+	$allowed_blocks[] = 'core/file';
 
 	// allow code block pro too.
 	$allowed_blocks[] = 'kevinbatdorf/code-block-pro';
