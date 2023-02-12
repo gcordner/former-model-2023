@@ -91,6 +91,9 @@ add_action( 'customize_controls_enqueue_scripts', 'understrap_child_customize_co
  * ACF BLOCKS.
  */
 add_action( 'acf/init', 'my_acf_init' );
+/**
+ * Initialize ACF block.
+ */
 function my_acf_init() {
 
 	// check function exists.
@@ -122,58 +125,19 @@ function my_acf_block_render_callback( $block ) {
 	}
 }
 
-// Allow SVG.
-add_filter(
-	'wp_check_filetype_and_ext',
-	function( $data, $file, $filename, $mimes ) {
-
-		global $wp_version;
-		if ( '4.7.1' !== $wp_version ) {
-			return $data;
-		}
-
-		$filetype = wp_check_filetype( $filename, $mimes );
-
-		return array(
-			'ext'             => $filetype['ext'],
-			'type'            => $filetype['type'],
-			'proper_filename' => $data['proper_filename'],
-		);
-
-	},
-	10,
-	4
-);
-
-function cc_mime_types( $mimes ) {
-	$mimes['svg'] = 'image/svg+xml';
-	return $mimes;
-}
-  add_filter( 'upload_mimes', 'cc_mime_types' );
-
-function fix_svg() {
-	echo '<style type="text/css">
-		  .attachment-266x266, .thumbnail img {
-			   width: 100% !important;
-			   height: auto !important;
-		  }
-		  </style>';
-}
-  add_action( 'admin_head', 'fix_svg' );
-
 /**
  * Restrict blocks in editor.
  *
  * @return array
  */
 function allowed_block_types() {
- 
+
 	$allowed_blocks = array();
 	$acf_blocks     = acf_get_block_types();
 	foreach ( $acf_blocks as $acf_block ) :
 		$allowed_blocks[] = $acf_block['name'];
 	endforeach;
- 
+
 	// add in core blocks.
 	$allowed_blocks[] = 'core/heading';
 	$allowed_blocks[] = 'core/paragraph';
@@ -186,12 +150,15 @@ function allowed_block_types() {
 	$allowed_blocks[] = 'core/embed';
 	$allowed_blocks[] = 'core/column';
 	$allowed_blocks[] = 'core/columns';
+	$allowed_blocks[] = 'core/cover';
 	$allowed_blocks[] = 'core/shortcode';
 	$allowed_blocks[] = 'core/code';
- 
+	$allowed_blocks[] = 'core/button';
+	$allowed_blocks[] = 'core/buttons';
+
 	// allow code block pro too.
 	$allowed_blocks[] = 'kevinbatdorf/code-block-pro';
- 
+
 	return $allowed_blocks;
 }
 add_filter( 'allowed_block_types_all', 'allowed_block_types' );
