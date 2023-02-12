@@ -15126,6 +15126,13 @@ figure.woocommerce-product-gallery__wrapper {
   margin: auto;
 }
 
+@media (min-width: 768px) {
+  .column_66_percent {
+    width: 66%;
+    margin-left: 0;
+  }
+}
+
 .has-blue-color,
 .has-blue-color:visited {
   color: #2675a6;

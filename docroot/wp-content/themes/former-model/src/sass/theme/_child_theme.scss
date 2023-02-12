@@ -25,3 +25,11 @@
     max-width: 992px;
     margin: auto;
 }
+
+.column_66_percent {
+    @include media-breakpoint-up(md) {
+        width: 66%;
+        margin-left: 0;
+    }
+}
+
