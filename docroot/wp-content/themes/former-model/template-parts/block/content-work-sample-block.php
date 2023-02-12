@@ -21,18 +21,19 @@ if ( ! empty( $img ) ) {
 ?>
 
 
-<div class = "work-block__container">
+<div class = "work-block__container card">
 <figure id="attachment_<?php echo esc_html( $img_id ); ?>" class="wp-caption aligncenter img-<?php echo esc_html( $orientation ); ?>">
 <img loading="lazy" class="size-full wp-image-<?php echo esc_html( $img_id ); ?>" src="<?php echo esc_html( $img_url ); ?>" alt="<?php echo esc_html( $alt ); ?>">
 
 </figure> 
-<div class="work-block__title">
-<p><?php if ( ! empty( $url ) ) : ?>
+<div class="card-body">
+<div class="work-block__title text-center">
+<h3><?php if ( ! empty( $url ) ) : ?>
 <a href="<?php echo wp_kses_post( $url ); ?>" target="_blank" rel="nofollow"> 
 	<?php echo wp_kses_post( $block_title ); ?></a>
 <?php else : ?>
 	<?php echo wp_kses_post( $block_title ); ?>
-<?php endif; ?></p>
+<?php endif; ?></h3>
 </div>
 <div class="work-block__content">
 <?php echo wp_kses_post( $block_content ); ?>
@@ -41,19 +42,14 @@ if ( ! empty( $img ) ) {
 <?php
 if ( ! empty( $block_technology ) ) :
 	?>
-<div class="work-block__technology"></p>
+<div class="work-block__technology"><p>
+	<strong>Technologies: </strong>
 	<?php
 	echo wp_kses_post( $block_technology );
 	?>
 </p></div>
 <?php endif; ?>
-
 </div>
-<!-- END CUSTOM IMAGE BLOCK -->
+</div>
 
-
-	<!-- <figure id="attachment_27" aria-describedby="caption-attachment-27" style="width: 798px" class="wp-caption aligncenter">
-<img loading="lazy" class="size-full wp-image-27 portrait" src="http://www.geoffcordner.com/wp-content/uploads/2019/10/harry-dean-stanton.jpg" alt="Harry Dean Stanton" width="798" height="1136">
-<figcaption id="caption-attachment-27" class="wp-caption-text">Harry Dean Stanton, Hollywood Hills Gothic, Los Angeles 1994</figcaption>
-</figure> -->
 
