@@ -5109,8 +5109,7 @@ textarea.form-control-lg {
   word-wrap: break-word;
   background-color: var(--bs-card-bg);
   background-clip: border-box;
-  border: var(--bs-card-border-width) solid var(--bs-card-border-color);
-  border-radius: var(--bs-card-border-radius);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 .card > hr {
   margin-right: 0;
@@ -5139,6 +5138,10 @@ textarea.form-control-lg {
   flex: 1 1 auto;
   padding: var(--bs-card-spacer-y) var(--bs-card-spacer-x);
   color: var(--bs-card-color);
+}
+
+.work-block__container .card-body {
+  padding-top: 0px;
 }
 
 .card-title {
@@ -15131,6 +15134,23 @@ figure.woocommerce-product-gallery__wrapper {
     width: 66%;
     margin-left: 0;
   }
+}
+
+.work-block__title a {
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #162c40;
+}
+.work-block__title a:hover {
+  text-decoration: underline;
+}
+
+.wp-block-cover__inner-container {
+  padding: 4rem 0 4rem 0;
+}
+
+.wrapper {
+  padding-bottom: 0;
 }
 
 .has-blue-color,
