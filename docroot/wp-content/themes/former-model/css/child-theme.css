@@ -15153,6 +15153,10 @@ figure.woocommerce-product-gallery__wrapper {
   padding-bottom: 0;
 }
 
+.entry-footer {
+  display: none;
+}
+
 .has-blue-color,
 .has-blue-color:visited {
   color: #2675a6;
