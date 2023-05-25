@@ -7,10 +7,15 @@ import {
     Modal,
 } from '@wordpress/components';
 import { useState } from '@wordpress/element';
+import { applyFilters } from '@wordpress/hooks';
 import { __ } from '@wordpress/i18n';
 import classNames from 'classnames';
 import { useSettingsStore } from '../../state/settings';
-import { getNormalThemes, getPriorityThemes } from '../../util/themes';
+import {
+    getCustomThemes,
+    getNormalThemes,
+    getPriorityThemes,
+} from '../../util/themes';
 
 export const ThemeFilter = ({
     search,
@@ -34,13 +39,21 @@ export const ThemeFilter = ({
                         onChange={setSearch}
                         value={search}
                     />
-                    <Button
-                        className="block -mt-4 mb-4"
-                        data-cy="manage-themes"
-                        variant="link"
-                        onClick={openModal}>
-                        {__('Manage themes', 'code-block-pro')}
-                    </Button>
+                    <div className="-mt-4 mb-4 flex flex-wrap gap-2">
+                        <Button
+                            data-cy="manage-themes"
+                            variant="secondary"
+                            isSmall
+                            onClick={openModal}>
+                            {__('Manage themes', 'code-block-pro')}
+                        </Button>
+                        {
+                            applyFilters(
+                                'blocks.codeBlockPro.themesPanelButtons',
+                                null,
+                            ) as JSX.Element | null
+                        }
+                    </div>
                 </BaseControl>
             </div>
             {modalOpen && <ThemeVisibilitySelector closeModal={closeModal} />}
@@ -62,21 +75,23 @@ const ThemeVisibilitySelector = ({
             className="code-block-pro-editor">
             <div
                 id="code-block-pro-theme-manager"
-                className="flex flex-col gap-4">
+                className="flex flex-col gap-4 mt-2">
                 {priorityThemes?.length > 0 ? (
                     <div className="flex flex-col gap-4 bg-gray-100 p-4">
                         <h2 className="m-0 my-2 text-center">
                             {__('Priority themes', 'code-block-pro')}
                         </h2>
                         <div className="md:grid gap-3 grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                            {priorityThemes.map(({ name, slug }) => (
-                                <ToggleControl
-                                    key={slug}
-                                    checked={!hiddenThemes.includes(slug)}
-                                    label={name}
-                                    onChange={() => toggleHiddenTheme(slug)}
-                                />
-                            ))}
+                            {[...getCustomThemes(), ...priorityThemes].map(
+                                ({ name, slug }) => (
+                                    <ToggleControl
+                                        key={slug}
+                                        checked={!hiddenThemes.includes(slug)}
+                                        label={name}
+                                        onChange={() => toggleHiddenTheme(slug)}
+                                    />
+                                ),
+                            )}
                         </div>
                     </div>
                 ) : null}

@@ -1,7 +1,7 @@
 import { useEffect, useRef } from '@wordpress/element';
 import { Theme } from 'shiki';
 import { useGlobalStore } from '../state/global';
-import { useThemeStore } from '../state/theme';
+import { useThemeStore, useThemeStoreReady } from '../state/theme';
 import { AttributesPropsAndSetter } from '../types';
 
 export const useDefaults = ({
@@ -19,6 +19,7 @@ export const useDefaults = ({
         clampFonts,
         disablePadding,
         lineNumbers,
+        highlightingHover,
     } = attributes;
     const { previousSettings } = useGlobalStore();
     const {
@@ -31,7 +32,9 @@ export const useDefaults = ({
         previousClampFonts,
         previousDisablePadding,
         previousLineNumbers,
+        previousHighlightingHover,
     } = useThemeStore();
+    const ready = useThemeStoreReady();
     const once = useRef(false);
 
     useEffect(() => {
@@ -103,8 +106,18 @@ export const useDefaults = ({
     }, [previousLineNumbers, lineNumbers, setAttributes]);
 
     useEffect(() => {
+        if (once.current) return;
+        if (
+            highlightingHover !== undefined ||
+            previousHighlightingHover === undefined
+        )
+            return;
+        setAttributes({ highlightingHover: previousHighlightingHover });
+    }, [previousHighlightingHover, highlightingHover, setAttributes]);
+
+    useEffect(() => {
         requestAnimationFrame(() => {
             once.current = true;
         });
-    }, []);
+    }, [ready]);
 };

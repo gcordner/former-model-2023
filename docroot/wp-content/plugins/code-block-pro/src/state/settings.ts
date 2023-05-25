@@ -1,6 +1,6 @@
 import apiFetch from '@wordpress/api-fetch';
 import { useEffect, useState } from '@wordpress/element';
-import create from 'zustand';
+import { create } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
 
 type Settings = {
@@ -9,7 +9,7 @@ type Settings = {
     setSeenNotice: (notice: string) => void;
     toggleHiddenTheme: (theme: string) => void;
 };
-const path = '/wp/v2/settings';
+const path = '/code-block-pro/v1/settings';
 const getSettings = async (name: string) => {
     const allSettings = await apiFetch({ path });
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment

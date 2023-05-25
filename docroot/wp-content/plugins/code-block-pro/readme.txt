@@ -1,8 +1,8 @@
 === Code Block Pro - Beautiful Syntax Highlighting ===
 Contributors:      kbat82
 Tags:              block, code, syntax, snippet, highlighter, JavaScript, php, vs code
-Tested up to:      6.1
-Stable tag:        1.12.0
+Tested up to:      6.2
+Stable tag:        1.17.0
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -29,14 +29,15 @@ Star [Code Block Pro](https://github.com/KevinBatdorf/code-block-pro) on GitHub!
 - Supports over 140 programming languages
 - Modern programming web fonts - locally hosted
 - Line numbers
-- Line highlighting
-- Blur highlighting
+- Line highlighting (static and on hover)
+- Blur highlighting (with reveal on hover)
 - Header styles
 - Footer styles
 - Copy button
 - Native Gutenberg block
 - Core functionality works in headless mode (see FAQ)
 - Converting from the default code block (and others)
+- Max height with scrollable section (optional expand button)
 
 = More info =
 - Follow [@kevinbatdorf](https://twitter.com/kevinbatdorf) on Twitter
@@ -79,10 +80,41 @@ Star [Code Block Pro](https://github.com/KevinBatdorf/code-block-pro) on GitHub!
 
 Get more themes at [code-block-pro.com/themes](https://code-block-pro.com/themes?utm_campaign=themes&utm_source=readme-body&utm_medium=textlink)
 
+= Theme Pack (Paid) Includes =
+- Custom Dynamic Theme [read more](https://github.com/KevinBatdorf/code-block-pro/discussions/168)
+- Ayu Dark
+- Ayu Mirage
+- Ayu Light
+- Night Owl
+- Night Owl Light
+- Noctis
+- Noctis Azureus
+- Noctis Bordo
+- Noctis Hibernus
+- Noctis Lilac
+- Noctis Lux
+- Noctis Minimus
+- Noctis Obscuro
+- Noctis Sereno
+- Noctis Uva
+- Noctis Viola
+- Palenight
+- Pico 8
+- Shades of Purple
+- Shades of Purple Super Dark
+- Synthwave '84
+- Tokyo Night
+- Tokyo Night Storm
+- Tokyo Night Light
+- Winter is Coming
+- Winter is Coming Light
+- Winter is Coming Dark
+
 = Included Coding Languages =
 - ABAP
 - ActionScript 3
 - Ada
+- ANSI (control codes rendered)
 - Apache
 - Apex
 - APL
@@ -92,7 +124,7 @@ Get more themes at [code-block-pro.com/themes](https://code-block-pro.com/themes
 - Astro
 - Awk
 - Ballerina
-- BAT
+- BAT (Batchfile)
 - Berry
 - BibTeX
 - BICEP
@@ -114,7 +146,7 @@ Get more themes at [code-block-pro.com/themes](https://code-block-pro.com/themes
 - Dart
 - DAX
 - Diff
-- Docker
+- Dockerfile
 - DreamMaker
 - Elixir
 - Elm
@@ -122,9 +154,13 @@ Get more themes at [code-block-pro.com/themes](https://code-block-pro.com/themes
 - Erlang
 - Fish
 - F#
+- GDResource (Godot)
+- GDScript (Godot)
+- GDShader (Godot)
 - Gherkin
 - Git Commit
 - Git Rebase
+- GLSL
 - Gnuplot
 - Go
 - GraphQL
@@ -136,24 +172,28 @@ Get more themes at [code-block-pro.com/themes](https://code-block-pro.com/themes
 - HCL
 - HLSL
 - HTML
+- HTTP
 - INI
 - Java
 - JavaScript
 - Jinja HTML
+- Jison
 - JSON
+- JSON5
 - JSONC
 - JSONnet
 - JSSM
 - JSX
 - Julia
 - Kotlin
+- Kusto
 - LaTeX
 - LESS
 - Liquid
 - Lisp
 - Logo
 - Lua
-- Make
+- Makefile
 - Markdown
 - Marko
 - MATLAB
@@ -168,12 +208,14 @@ Get more themes at [code-block-pro.com/themes](https://code-block-pro.com/themes
 - Pascal
 - Perl
 - PHP
+- Plaintext
 - PLSQL
 - PostCSS
-- PowerShell
 - Power Query
+- PowerShell
 - Prisma
 - Prolog
+- Protocol Buffers
 - Pug
 - Puppet
 - PureScript
@@ -181,6 +223,7 @@ Get more themes at [code-block-pro.com/themes](https://code-block-pro.com/themes
 - R
 - Raku
 - Razor
+- Windows Registry
 - Rel
 - RISC-V
 - RST
@@ -192,7 +235,9 @@ Get more themes at [code-block-pro.com/themes](https://code-block-pro.com/themes
 - Scheme
 - SCSS
 - ShaderLab
-- ShellScript (bash, zsh, sh, shell)
+- Bash
+- ShellScript
+- Zsh
 - Smalltalk
 - Solidity
 - SPARQL
@@ -211,6 +256,7 @@ Get more themes at [code-block-pro.com/themes](https://code-block-pro.com/themes
 - Turtle
 - Twig
 - TypeScript
+- V
 - VB
 - Verilog
 - VHDL
@@ -219,6 +265,8 @@ Get more themes at [code-block-pro.com/themes](https://code-block-pro.com/themes
 - Vue
 - WASM
 - Wenyan
+- WGSL
+- Wolfram
 - XML
 - XSL
 - YAML
@@ -244,8 +292,46 @@ Themes are rendered inside the editor as you type or make changes, so the code b
 2. Customize fonts, themes, and behavior.
 3. Disable padding and inline the code for a fluent experience.
 4. Use highlighting and blur to focus on parts of the code.
+5. ANSI support for rendering control sequences
 
 == Changelog ==
+
+= 1.16.1 - 2023-05-06 =
+- Feature: Add line highlighting on hover
+- Tweak: Updated the line highlighting sidebar language to be more clear (hopefully)
+- Fix: Removed pointer events from line highlights so you can select text under it
+- Fix: Adds styling to avoid CLS in the editor on page load
+
+= 1.16.1 - 2023-05-01 =
+- Tweak: Removes the filtering of bash and zsh filtering
+- Fix: Better language sorting (by label instead of key)
+- Fix: Fix typo in Wolfram language key
+
+= 1.16.0 - 2023-04-30 =
+- Feature: Added new language grammars: GD Script, GD Resource, GD Shader, GLSL, Http, Jison, JSON5, Kusto (kql), Protocol Buffers (.proto), Windows Registry (.reg), V, WGSL, and Wolfram
+- Tweak: Removed toolbar language select and added functionality to focus on the sidebar setting
+- Refactor: Moved header/footer settings out of the language select into their own panels
+
+= 1.15.0 - 2023-04-08 =
+- Feature: Add notice to users who do not have permission to update
+- Feature: Added hooks to allow users to add their own themes (or via the theme pack)
+- Feature: Add plaintext option to allow rendering as text
+
+= 1.14.0 - 2023-03-26 =
+- Feature: Added theme identifier to toolbar
+- Feature: Added some filters for attributes and buttons
+- Tweak: Updated various styles
+- Testing: Updated Cypress to test against latest RC on main push
+- Testing: Integration tests now run concurrently to isolate flakey failures
+- Fix: Added custom endpoint for settings, allowing edit_post cap users
+- Fix: Removed a type conversion to false, causing dirty posts on focus
+- Accessibility: Added keydown events to frontend copy button
+
+= 1.13.0 - 2023-02-05 =
+- Feature: Add scrollable max height area with no button (Max Height panel)
+- Feature: Add expanding code area with max height based online number
+- Feature: Added ANSI rendering support - some themes do not look perfect yet
+- Fix: Disabled font ligatures in the editor as it broke cursor positioning on wraps
 
 = 1.12.0 - 2023-01-28 =
 - Feature: Added Ara, Power Query, and DAX language support

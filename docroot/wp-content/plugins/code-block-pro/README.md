@@ -1,7 +1,9 @@
 Code highlighting powered by the VS Code engine
 
-Read more at [code-block-pro.com](https://code-block-pro.com?utm_campaign=plugin&utm_source=gh-readme&utm_medium=textlink)
+Read more at [code-block-pro.com](https://code-block-pro.com?utm_campaign=github&utm_source=gh-readme&utm_medium=textlink)
+
 View all themes at [code-block-pro.com/themes](https://code-block-pro.com/themes?utm_campaign=themes&utm_source=gh-readme&utm_medium=textlink)
+
 View this block plugin [on WordPress.org](https://wordpress.org/plugins/code-block-pro)
 
 [![Twitter](https://img.shields.io/twitter/url/https/twitter.com/kevinbatdorf.svg?style=social&label=Follow%20%40kevinbatdorf)](https://twitter.com/kevinbatdorf)
@@ -10,8 +12,8 @@ View this block plugin [on WordPress.org](https://wordpress.org/plugins/code-blo
 - Supports over 140 programming languages
 - Optionally load programming fonts
 - Line numbers
-- Line highlighting
-- Blur highlighting
+- Line highlighting (static and on hover)
+- Blur highlighting (with reveal on hover)
 - Header styles
 - Footer styles
 - Optionally add a copy button to let users copy the code

@@ -13,8 +13,6 @@ use WPSEO_Options;
 use WPSEO_Replace_Vars;
 use WPSEO_Shortlinker;
 use WPSEO_Sitemaps_Router;
-use Yoast_Notification_Center;
-use Yoast\WP\SEO\Actions\Settings_Introduction_Action;
 use Yoast\WP\SEO\Conditionals\Settings_Conditional;
 use Yoast\WP\SEO\Config\Schema_Types;
 use Yoast\WP\SEO\Helpers\Current_Page_Helper;
@@ -25,6 +23,7 @@ use Yoast\WP\SEO\Helpers\Schema\Article_Helper;
 use Yoast\WP\SEO\Helpers\Taxonomy_Helper;
 use Yoast\WP\SEO\Helpers\User_Helper;
 use Yoast\WP\SEO\Helpers\Woocommerce_Helper;
+use Yoast_Notification_Center;
 
 /**
  * Class Settings_Integration.
@@ -165,27 +164,19 @@ class Settings_Integration implements Integration_Interface {
 	protected $user_helper;
 
 	/**
-	 * Holds the Settings_Introduction_Action.
-	 *
-	 * @var Settings_Introduction_Action
-	 */
-	protected $settings_introduction_action;
-
-	/**
 	 * Constructs Settings_Integration.
 	 *
-	 * @param WPSEO_Admin_Asset_Manager    $asset_manager                The WPSEO_Admin_Asset_Manager.
-	 * @param WPSEO_Replace_Vars           $replace_vars                 The WPSEO_Replace_Vars.
-	 * @param Schema_Types                 $schema_types                 The Schema_Types.
-	 * @param Current_Page_Helper          $current_page_helper          The Current_Page_Helper.
-	 * @param Post_Type_Helper             $post_type_helper             The Post_Type_Helper.
-	 * @param Language_Helper              $language_helper              The Language_Helper.
-	 * @param Taxonomy_Helper              $taxonomy_helper              The Taxonomy_Helper.
-	 * @param Product_Helper               $product_helper               The Product_Helper.
-	 * @param Woocommerce_Helper           $woocommerce_helper           The Woocommerce_Helper.
-	 * @param Article_Helper               $article_helper               The Article_Helper.
-	 * @param User_Helper                  $user_helper                  The User_Helper.
-	 * @param Settings_Introduction_Action $settings_introduction_action The Settings_Introduction_Action.
+	 * @param WPSEO_Admin_Asset_Manager $asset_manager                The WPSEO_Admin_Asset_Manager.
+	 * @param WPSEO_Replace_Vars        $replace_vars                 The WPSEO_Replace_Vars.
+	 * @param Schema_Types              $schema_types                 The Schema_Types.
+	 * @param Current_Page_Helper       $current_page_helper          The Current_Page_Helper.
+	 * @param Post_Type_Helper          $post_type_helper             The Post_Type_Helper.
+	 * @param Language_Helper           $language_helper              The Language_Helper.
+	 * @param Taxonomy_Helper           $taxonomy_helper              The Taxonomy_Helper.
+	 * @param Product_Helper            $product_helper               The Product_Helper.
+	 * @param Woocommerce_Helper        $woocommerce_helper           The Woocommerce_Helper.
+	 * @param Article_Helper            $article_helper               The Article_Helper.
+	 * @param User_Helper               $user_helper                  The User_Helper.
 	 */
 	public function __construct(
 		WPSEO_Admin_Asset_Manager $asset_manager,
@@ -198,21 +189,19 @@ class Settings_Integration implements Integration_Interface {
 		Product_Helper $product_helper,
 		Woocommerce_Helper $woocommerce_helper,
 		Article_Helper $article_helper,
-		User_Helper $user_helper,
-		Settings_Introduction_Action $settings_introduction_action
+		User_Helper $user_helper
 	) {
-		$this->asset_manager                = $asset_manager;
-		$this->replace_vars                 = $replace_vars;
-		$this->schema_types                 = $schema_types;
-		$this->current_page_helper          = $current_page_helper;
-		$this->taxonomy_helper              = $taxonomy_helper;
-		$this->post_type_helper             = $post_type_helper;
-		$this->language_helper              = $language_helper;
-		$this->product_helper               = $product_helper;
-		$this->woocommerce_helper           = $woocommerce_helper;
-		$this->article_helper               = $article_helper;
-		$this->user_helper                  = $user_helper;
-		$this->settings_introduction_action = $settings_introduction_action;
+		$this->asset_manager       = $asset_manager;
+		$this->replace_vars        = $replace_vars;
+		$this->schema_types        = $schema_types;
+		$this->current_page_helper = $current_page_helper;
+		$this->taxonomy_helper     = $taxonomy_helper;
+		$this->post_type_helper    = $post_type_helper;
+		$this->language_helper     = $language_helper;
+		$this->product_helper      = $product_helper;
+		$this->woocommerce_helper  = $woocommerce_helper;
+		$this->article_helper      = $article_helper;
+		$this->user_helper         = $user_helper;
 	}
 
 	/**
@@ -379,6 +368,23 @@ class Settings_Integration implements Integration_Interface {
 		$post_types             = $this->post_type_helper->get_indexable_post_type_objects();
 		$taxonomies             = $this->taxonomy_helper->get_indexable_taxonomy_objects();
 
+		// Check if attachments are included in indexation.
+		if ( ! \array_key_exists( 'attachment', $post_types ) ) {
+			// Always include attachments in the settings, to let the user enable them again.
+			$attachment_object = \get_post_type_object( 'attachment' );
+			if ( ! empty( $attachment_object ) ) {
+				$post_types['attachment'] = $attachment_object;
+			}
+		}
+		// Check if post formats are included in indexation.
+		if ( ! \array_key_exists( 'post_format', $taxonomies ) ) {
+			// Always include post_format in the settings, to let the user enable them again.
+			$post_format_object = \get_taxonomy( 'post_format' );
+			if ( ! empty( $post_format_object ) ) {
+				$taxonomies['post_format'] = $post_format_object;
+			}
+		}
+
 		$transformed_post_types = $this->transform_post_types( $post_types );
 		$transformed_taxonomies = $this->transform_taxonomies( $taxonomies, \array_keys( $transformed_post_types ) );
 
@@ -396,7 +402,6 @@ class Settings_Integration implements Integration_Interface {
 			'postTypes'            => $transformed_post_types,
 			'taxonomies'           => $transformed_taxonomies,
 			'fallbacks'            => $this->get_fallbacks(),
-			'introduction'         => $this->get_introduction_data(),
 		];
 	}
 
@@ -423,7 +428,8 @@ class Settings_Integration implements Integration_Interface {
 			'isNetworkAdmin'                => \is_network_admin(),
 			'isMainSite'                    => \is_main_site(),
 			'isWooCommerceActive'           => $this->woocommerce_helper->is_active(),
-			'isLocalSeoActive'              => (bool) \defined( 'WPSEO_LOCAL_FILE' ),
+			'isLocalSeoActive'              => \defined( 'WPSEO_LOCAL_FILE' ),
+			'isNewsSeoActive'               => \defined( 'WPSEO_NEWS_FILE' ),
 			'siteUrl'                       => \get_bloginfo( 'url' ),
 			'siteTitle'                     => \get_bloginfo( 'name' ),
 			'sitemapUrl'                    => WPSEO_Sitemaps_Router::get_base_url( 'sitemap_index.xml' ),
@@ -435,6 +441,7 @@ class Settings_Integration implements Integration_Interface {
 			'homepagePostsEditUrl'          => \get_edit_post_link( $page_for_posts, 'js' ),
 			'createUserUrl'                 => \admin_url( 'user-new.php' ),
 			'editUserUrl'                   => \admin_url( 'user-edit.php' ),
+			'editTaxonomyUrl'               => \admin_url( 'edit-tags.php' ),
 			'generalSettingsUrl'            => \admin_url( 'options-general.php' ),
 			'companyOrPersonMessage'        => \apply_filters( 'wpseo_knowledge_graph_setting_msg', '' ),
 			'currentUserId'                 => \get_current_user_id(),
@@ -447,25 +454,6 @@ class Settings_Integration implements Integration_Interface {
 			'upsellSettings'                => $this->get_upsell_settings(),
 			'siteRepresentsPerson'          => $this->get_site_represents_person( $settings ),
 		];
-	}
-
-	/**
-	 * Retrieves the preferences.
-	 *
-	 * @return array The preferences.
-	 */
-	protected function get_introduction_data() {
-		$data = [];
-
-		try {
-			$data['wistiaEmbedPermission'] = $this->settings_introduction_action->get_wistia_embed_permission();
-			$data['show']                  = $this->settings_introduction_action->get_show();
-		} catch ( Exception $exception ) {
-			$data['wistiaEmbedPermission'] = false;
-			$data['show']                  = true;
-		}
-
-		return $data;
 	}
 
 	/**
@@ -500,7 +488,7 @@ class Settings_Integration implements Integration_Interface {
 	public function get_upsell_settings() {
 		return [
 			'actionId'     => 'load-nfd-ctb',
-			'premiumCtbId' => '57d6a568-783c-45e2-a388-847cff155897',
+			'premiumCtbId' => 'f6a84663-465f-4cb5-8ba5-f7a6d72224b2',
 		];
 	}
 
@@ -707,7 +695,7 @@ class Settings_Integration implements Integration_Interface {
 	 */
 	protected function transform_post_types( $post_types ) {
 		$transformed = [];
-		foreach ( $post_types as $index => $post_type ) {
+		foreach ( $post_types as $post_type ) {
 			$transformed[ $post_type->name ] = [
 				'name'                 => $post_type->name,
 				'route'                => $this->get_route( $post_type->name, $post_type->rewrite, $post_type->rest_base ),
@@ -758,11 +746,12 @@ class Settings_Integration implements Integration_Interface {
 	 */
 	protected function transform_taxonomies( $taxonomies, $post_type_names ) {
 		$transformed = [];
-		foreach ( $taxonomies as $index => $taxonomy ) {
+		foreach ( $taxonomies as $taxonomy ) {
 			$transformed[ $taxonomy->name ] = [
 				'name'          => $taxonomy->name,
 				'route'         => $this->get_route( $taxonomy->name, $taxonomy->rewrite, $taxonomy->rest_base ),
 				'label'         => $taxonomy->label,
+				'showUi'        => $taxonomy->show_ui,
 				'singularLabel' => $taxonomy->labels->singular_name,
 				'postTypes'     => \array_filter(
 					$taxonomy->object_type,
@@ -805,7 +794,7 @@ class Settings_Integration implements Integration_Interface {
 			$route = \substr( $route, 1 );
 		}
 
-		return $route;
+		return \rawurlencode( $route );
 	}
 
 	/**

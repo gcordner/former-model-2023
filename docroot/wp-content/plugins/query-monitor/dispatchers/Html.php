@@ -237,13 +237,13 @@ class QM_Dispatcher_Html extends QM_Dispatcher {
 			'query-monitor',
 			$this->qm->plugin_url( 'assets/query-monitor.css' ),
 			array(),
-			$this->qm->plugin_ver( 'assets/query-monitor.css' )
+			QM_VERSION
 		);
 		wp_enqueue_script(
 			'query-monitor',
 			$this->qm->plugin_url( 'assets/query-monitor.js' ),
 			$deps,
-			$this->qm->plugin_ver( 'assets/query-monitor.js' ),
+			QM_VERSION,
 			false
 		);
 		wp_localize_script(
@@ -348,7 +348,7 @@ class QM_Dispatcher_Html extends QM_Dispatcher {
 			require_once $file;
 		}
 
-		/** @var QM_Output_Html[] */
+		/** @var array<string, QM_Output_Html> $outputters */
 		$outputters = $this->get_outputters( 'html' );
 
 		$this->outputters = $outputters;
@@ -644,6 +644,19 @@ class QM_Dispatcher_Html extends QM_Dispatcher {
 			),
 		);
 
+		/**
+		 * Filters which PHP constants for configuring Query Monitor are displayed on its settings panel.
+		 *
+		 * @since 3.12.0
+		 *
+		 * @param array $constants The displayed settings constants.
+		 * @phpstan-param array<string, array{
+		 *   label: string,
+		 *   default: mixed,
+		 * }> $constants
+		 */
+		$constants = apply_filters( 'qm/constants', $constants );
+
 		echo '<section>';
 		echo '<h3>' . esc_html__( 'Configuration', 'query-monitor' ) . '</h3>';
 		echo '<p>';
@@ -703,8 +716,8 @@ class QM_Dispatcher_Html extends QM_Dispatcher {
 		 *
 		 * @since  3.1.0
 		 *
-		 * @param QM_Dispatcher_Html $dispatcher The HTML dispatcher instance.
-		 * @param QM_Output_Html[]   $outputters Array of outputters.
+		 * @param QM_Dispatcher_Html            $dispatcher The HTML dispatcher instance.
+		 * @param array<string, QM_Output_Html> $outputters Array of outputters.
 		 */
 		do_action( 'qm/output/after', $this, $this->outputters );
 
@@ -826,8 +839,13 @@ class QM_Dispatcher_Html extends QM_Dispatcher {
 	 * @return bool
 	 */
 	public static function request_supported() {
-		// Don't dispatch if this is an async request and not a customizer preview:
-		if ( QM_Util::is_async() && ( ! function_exists( 'is_customize_preview' ) || ! is_customize_preview() ) ) {
+		// Don't dispatch if this is an async request:
+		if ( QM_Util::is_async() ) {
+			return false;
+		}
+
+		// Don't dispatch during a Customizer preview request:
+		if ( function_exists( 'is_customize_preview' ) && is_customize_preview() ) {
 			return false;
 		}
 
@@ -838,6 +856,12 @@ class QM_Dispatcher_Html extends QM_Dispatcher {
 
 		// Don't dispatch inside the Site Editor:
 		if ( isset( $_SERVER['SCRIPT_NAME'] ) && '/wp-admin/site-editor.php' === $_SERVER['SCRIPT_NAME'] ) {
+			return false;
+		}
+
+		// Don't dispatch on the interim login screen:
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		if ( ! empty( $_GET['interim-login'] ) ) {
 			return false;
 		}
 

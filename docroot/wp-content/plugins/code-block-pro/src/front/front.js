@@ -1,5 +1,7 @@
 import copy from 'copy-to-clipboard';
 
+const containerClass = '.wp-block-kevinbatdorf-code-block-pro';
+
 const handleCopyButton = () => {
     const buttons = Array.from(
         document.querySelectorAll(
@@ -10,8 +12,12 @@ const handleCopyButton = () => {
         button.classList.add('cbp-cb-loaded');
         // Setting it to block here lets users deactivate the plugin safely
         button.style.display = 'block';
-        button.addEventListener('click', (event) => {
-            const b = event.target?.closest('span');
+        const handler = (event) => {
+            const { type, key, target } = event;
+            // if keydown event, make sure it's enter or space
+            if (type === 'keydown' && !['Enter', ' '].includes(key)) return;
+            event.preventDefault();
+            const b = target?.closest('span');
             copy(b?.dataset?.code ?? '', {
                 format: 'text/plain',
             });
@@ -19,22 +25,32 @@ const handleCopyButton = () => {
             setTimeout(() => {
                 b.classList.remove('copying');
             }, 2000);
-        });
+        };
+        ['click', 'keydown'].forEach((evt) =>
+            button.addEventListener(evt, handler),
+        );
     });
 };
 
 const handleHighlighter = () => {
     const codeBlocks = Array.from(
-        document.querySelectorAll(
-            '.wp-block-kevinbatdorf-code-block-pro pre:not(.cbp-hl-loaded)',
-        ),
+        document.querySelectorAll(`${containerClass}:not(.cbp-hl-loaded)`),
     );
 
     codeBlocks.forEach((codeBlock) => {
         codeBlock.classList.add('cbp-hl-loaded');
         // Search for highlights
-        const highlighters = codeBlock.querySelectorAll('.cbp-line-highlight');
-        if (!highlighters.length) return;
+        const highlighters = new Set(
+            codeBlock.querySelectorAll('.cbp-line-highlight'),
+        );
+        // If the codeblock has .cbp-highlight-hover, then get all lines
+        if (codeBlock.classList.contains('cbp-highlight-hover')) {
+            codeBlock
+                .querySelectorAll('span.line')
+                .forEach((line) => console.log(line) || highlighters.add(line));
+        }
+
+        if (!highlighters.size) return;
 
         // We need to track the block width so we can adjust the
         // highlighter width in case of overflow
@@ -55,6 +71,8 @@ const handleHighlighter = () => {
             });
         });
         resizeObserver.observe(codeBlock);
+
+        console.log(highlighters);
 
         // add the highlighter
         highlighters.forEach((highlighter) => {
@@ -87,7 +105,74 @@ const handleFontLoading = () => {
     });
 };
 
+const handleSeeMore = () => {
+    const seeMoreLines = Array.from(
+        document.querySelectorAll(
+            `${containerClass}:not(.cbp-see-more-loaded) .cbp-see-more-line`,
+        ),
+    );
+    seeMoreLines.forEach((line) => {
+        const currentContainer = line.closest(containerClass);
+        currentContainer.classList.add('cbp-see-more-loaded');
+        const pre = line.closest('pre');
+        const initialHeight = pre.offsetHeight;
+        let animationSpeed = 0;
+
+        if (line.classList.contains('cbp-see-more-transition')) {
+            const lineCount = pre.querySelectorAll('code > *').length;
+            const linesBeforeCurrent = Array.from(
+                line.closest('code').children,
+            ).filter((l) => l.offsetTop < line.offsetTop)?.length;
+            animationSpeed = 0.5 + (lineCount - linesBeforeCurrent) * 0.01;
+            pre.style.transition = `max-height ${animationSpeed}s ease-out`;
+        }
+
+        // if the first child it a span then get the height of that span
+        const headerHeight =
+            currentContainer.children[0].tagName === 'SPAN'
+                ? currentContainer.children[0].offsetHeight
+                : 0;
+        const lineHeight = parseFloat(window.getComputedStyle(line).lineHeight);
+        pre.style.maxHeight = `${line.offsetTop + lineHeight - headerHeight}px`;
+
+        const buttonContainer = line
+            .closest(containerClass)
+            .querySelector('.cbp-see-more-container');
+        if (!buttonContainer) return;
+        buttonContainer.style.display = 'flex';
+        const button = buttonContainer.querySelector(
+            '.cbp-see-more-simple-btn',
+        );
+        if (!button) return;
+        if (currentContainer.classList.contains('padding-disabled')) {
+            button.classList.remove('cbp-see-more-simple-btn-hover');
+        }
+        button.style.transition = `all ${
+            Math.max(animationSpeed, 1) / 1.5
+        }s linear`;
+
+        const handle = (event) => {
+            event.preventDefault();
+            button.classList.remove('cbp-see-more-simple-btn-hover');
+            pre.style.maxHeight = initialHeight + 'px';
+            setTimeout(() => {
+                button.style.opacity = 0;
+                button.style.transform = 'translateY(-100%)';
+                setTimeout(
+                    () => button.remove(),
+                    Math.max(animationSpeed, 1) * 1000,
+                );
+            }, animationSpeed * 1000);
+        };
+        button.addEventListener('click', handle);
+        button.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') handle(event);
+        });
+    });
+};
+
 const init = () => {
+    handleSeeMore();
     handleCopyButton();
     handleHighlighter();
     handleFontLoading();

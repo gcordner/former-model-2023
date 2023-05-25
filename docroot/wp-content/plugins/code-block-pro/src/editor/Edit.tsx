@@ -8,18 +8,21 @@ import { escapeHTML } from '@wordpress/escape-html';
 import { applyFilters } from '@wordpress/hooks';
 import { decodeEntities } from '@wordpress/html-entities';
 import { sprintf, __ } from '@wordpress/i18n';
-import { colord } from 'colord';
 import Editor from 'react-simple-code-editor';
 import { useDefaults } from '../hooks/useDefaults';
 import { useTheme } from '../hooks/useTheme';
 import { useLanguageStore } from '../state/language';
-import { AttributesPropsAndSetter } from '../types';
+import { AttributesPropsAndSetter, Lang } from '../types';
 import { parseJSONArrayWithRanges } from '../util/arrayHelpers';
+import { computeLineHighlightColor } from '../util/colors';
+import { getEditorLanguage } from '../util/languages';
+import { MissingPermissionsTip } from './components/misc/MissingPermissions';
 
 export const Edit = ({
     attributes,
     setAttributes,
-}: AttributesPropsAndSetter) => {
+    canEdit,
+}: AttributesPropsAndSetter & { canEdit: boolean }) => {
     const {
         language,
         theme,
@@ -38,6 +41,10 @@ export const Edit = ({
         lineHighlights,
         enableBlurring,
         enableHighlighting,
+        seeMoreAfterLine,
+        seeMoreTransition,
+        enableMaxHeight,
+        editorHeight,
     } = attributes;
 
     const textAreaRef = useRef<HTMLDivElement>(null);
@@ -80,24 +87,40 @@ export const Edit = ({
 
     useEffect(() => {
         if (!highlighter) return;
-        setAttributes({
-            codeHTML: applyFilters(
-                'blocks.codeBlockPro.codeHTML',
-                highlighter.codeToHtml(decodeEntities(code), {
-                    lang: language ?? previousLanguage,
-                    lineOptions: [...getHighlights(), ...getBlurs()],
-                }),
-                attributes,
-            ) as string,
-            lineHighlightColor: colord(color)
-                .saturate(0.5)
-                .alpha(0.2)
-                .toRgbString(),
-        });
+        const l = (language ?? previousLanguage) as Lang | 'ansi';
+        const lang = getEditorLanguage(l);
+        const c = decodeEntities(code);
+        const lineOptions = [
+            ...getHighlights(),
+            ...getBlurs(),
+            enableMaxHeight && !Number.isNaN(seeMoreAfterLine)
+                ? {
+                      line: Number(seeMoreAfterLine),
+                      classes: [
+                          'cbp-see-more-line',
+                          seeMoreTransition ? 'cbp-see-more-transition' : '',
+                      ],
+                  }
+                : {},
+        ];
+        const rendered =
+            l === 'ansi'
+                ? highlighter.ansiToHtml(c, { lineOptions })
+                : highlighter.codeToHtml(c, { lang, lineOptions });
+        const codeHTML = applyFilters(
+            'blocks.codeBlockPro.codeHTML',
+            rendered,
+            attributes,
+        ) as string;
+        const lineHighlightColor = computeLineHighlightColor(color, attributes);
+        setAttributes({ codeHTML, lineHighlightColor });
     }, [
         highlighter,
+        seeMoreAfterLine,
+        seeMoreTransition,
         color,
         code,
+        enableMaxHeight,
         language,
         setAttributes,
         previousLanguage,
@@ -148,8 +171,8 @@ export const Edit = ({
     if (!loading && !highlighter) {
         return (
             <div
-                className="p-8 px-4 text-left"
-                style={{ backgroundColor, color }}>
+                className="px-4 text-left flex items-center"
+                style={{ backgroundColor, color, minHeight: 36 }}>
                 {sprintf(
                     __(
                         'Theme %s not found. Please select a different theme.',
@@ -164,15 +187,27 @@ export const Edit = ({
     if ((loading && code) || error) {
         return (
             <div
-                className="p-6 px-4 text-left"
-                style={{ backgroundColor, color }}>
+                className="px-4 text-left flex items-center"
+                style={{ backgroundColor, color, minHeight: 36 }}>
                 {error?.message ?? ''}
             </div>
         );
     }
 
     return (
-        <div ref={textAreaRef}>
+        <div
+            ref={textAreaRef}
+            style={{
+                maxHeight: Number(editorHeight)
+                    ? Number(editorHeight)
+                    : undefined,
+                overflow: Number(editorHeight) ? 'auto' : undefined,
+            }}>
+            {canEdit ? null : (
+                <div className="absolute inset-0 z-10 bg-white bg-opacity-70">
+                    <MissingPermissionsTip />
+                </div>
+            )}
             <Editor
                 value={decodeEntities(code)}
                 onValueChange={handleChange}
@@ -187,7 +222,11 @@ export const Edit = ({
                     })(),
                     right: 0,
                 }}
-                style={{ backgroundColor, color }}
+                style={{
+                    backgroundColor,
+                    color,
+                    minHeight: canEdit ? undefined : 200,
+                }}
                 // eslint-disable-next-line
                 onKeyDown={(e: any) =>
                     e.key === 'Tab' &&
@@ -197,7 +236,9 @@ export const Edit = ({
                 highlight={(code: string) =>
                     highlighter
                         ?.codeToHtml(decodeEntities(code), {
-                            lang: language ?? previousLanguage,
+                            lang: getEditorLanguage(
+                                language ?? previousLanguage,
+                            ),
                             lineOptions: [...getHighlights(), ...getBlurs()],
                         })
                         ?.replace(/<\/?[pre|code][^>]*>/g, '')

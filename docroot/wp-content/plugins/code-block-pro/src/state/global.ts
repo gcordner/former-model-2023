@@ -1,13 +1,15 @@
-import create from 'zustand';
+import { create } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
 
 type GlobalTypes = {
     previousSettings: {
         copyButton: boolean;
     };
+    bringAttentionToPanel: false | string;
     setPreviousSettings: (
         settings: Partial<GlobalTypes['previousSettings']>,
     ) => void;
+    setBringAttentionToPanel: (b: false | string) => void;
 };
 
 export const useGlobalStore = create<GlobalTypes>()(
@@ -25,15 +27,20 @@ export const useGlobalStore = create<GlobalTypes>()(
                         previousSettings: { ...state.previousSettings, ...s },
                     }));
                 },
+                bringAttentionToPanel: false,
+                setBringAttentionToPanel: (bringAttentionToPanel) => {
+                    set(() => ({ bringAttentionToPanel }));
+                },
             }),
             { name: 'Code Block Pro Globals' },
         ),
         {
             name: 'code-block-pro-last-globals',
-            getStorage: () => localStorage,
-            partialize: (state) => ({
-                previousSettings: state?.previousSettings ?? {},
-            }),
+            partialize: (state) => {
+                return {
+                    previousSettings: state.previousSettings,
+                };
+            },
         },
     ),
 );

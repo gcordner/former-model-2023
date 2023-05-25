@@ -32,8 +32,12 @@ export const FooterSelect = ({ attributes, onClick }: FooterSelectProps) => {
                             : type
                     }
                     help={
-                        ['simpleStringEnd', 'SimpleStringStart'].includes(slug)
-                            ? __('Update text in Settings', 'code-block-pro')
+                        ['simpleStringEnd', 'simpleStringStart'].includes(slug)
+                            ? // Settings refers to the panel that can be expanded
+                              __(
+                                  'Update extra settings above',
+                                  'code-block-pro',
+                              )
                             : undefined
                     }
                     key={slug}>
@@ -59,13 +63,14 @@ export const FooterSelect = ({ attributes, onClick }: FooterSelectProps) => {
     );
 };
 
-export const FooterType = (attributes: Partial<Attributes>) => {
-    const { footerType } = attributes;
+export const FooterType = (props: Partial<Attributes>) => {
+    const { footerType } = props;
     if (footerType === 'simpleStringEnd') {
-        return <SimpleStringEnd {...attributes} />;
+        return <SimpleStringEnd {...props} />;
     }
     if (footerType === 'simpleStringStart') {
-        return <SimpleStringStart {...attributes} />;
+        return <SimpleStringStart {...props} />;
     }
+
     return null;
 };
