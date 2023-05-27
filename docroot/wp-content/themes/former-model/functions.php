@@ -163,3 +163,17 @@ function allowed_block_types() {
 	return $allowed_blocks;
 }
 add_filter( 'allowed_block_types_all', 'allowed_block_types' );
+
+/**
+ *
+ * Use archive.php for home page.
+ */
+function gpc_use_archive_for_homepage( $template ) {
+	if ( is_home() && ! is_front_page() ) {
+		$template = locate_template( array( 'archive.php', 'index.php' ) );
+	}
+	return $template;
+}
+
+// Hook gpc_use_archive_for_homepage into template_include.
+add_filter( 'template_include', 'gpc_use_archive_for_homepage', 99 );
