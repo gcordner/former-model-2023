@@ -177,3 +177,16 @@ function gpc_use_archive_for_homepage( $template ) {
 
 // Hook gpc_use_archive_for_homepage into template_include.
 add_filter( 'template_include', 'gpc_use_archive_for_homepage', 99 );
+
+/**
+ * Include the modified template tags file from the child theme's inc folder.
+ */
+function gpc_include_template_tags() {
+	require_once get_stylesheet_directory() . '/inc/template-tags.php';
+}
+
+/**
+ * Hook the function to be executed after the theme is set up.
+ */
+add_action( 'after_setup_theme', 'gpc_include_template_tags', 11 );
+
