@@ -32,10 +32,16 @@ $container = get_theme_mod( 'understrap_container_type' );
 				if ( have_posts() ) {
 					?>
 					<header class="page-header">
-						<?php
+					<?php
+					if ( is_home() ) {
+						// Code to execute if it's the homepage.
+						echo '<h1 class="page-title">Articles</h1>';
+					} else {
 						the_archive_title( '<h1 class="page-title">', '</h1>' );
+					}
+
 						the_archive_description( '<div class="taxonomy-description">', '</div>' );
-						?>
+					?>
 					</header><!-- .page-header -->
 					<div class="row gx-5">
 					<?php
