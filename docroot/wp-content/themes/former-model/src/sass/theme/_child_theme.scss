@@ -44,10 +44,11 @@
         text-transform: uppercase;
         text-decoration: none;
         color: $dark-blue;
+
         &:hover {
-          text-decoration: underline;
+            text-decoration: underline;
         }
-      }
+    }
 }
 
 .wp-block-cover__inner-container {
@@ -63,8 +64,4 @@
 
 .wrapper {
     padding-bottom: 0;
-}
-
-.entry-footer {
-    display:none;
 }
