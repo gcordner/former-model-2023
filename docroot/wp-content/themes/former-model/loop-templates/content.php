@@ -8,10 +8,12 @@
 // Exit if accessed directly.
 defined( 'ABSPATH' ) || exit;
 ?>
-<div class="col-sm-12 col-md-6 mb-5">
-<article <?php post_class(); ?> id="post-<?php the_ID(); ?>"  style="border: 2px solid #cccccc;">
+<div class="col-sm-12 col-md-6 mb-5" style="border:1 px solid red;">
+<article <?php post_class( 'archive__article' ); ?> id="post-<?php the_ID(); ?>">
+<?php echo get_the_post_thumbnail( $post->ID, 'large' ); ?>
 
-	<header class="entry-header">
+<div class="article__content">	
+<header class="entry-header">
 
 		<?php
 		the_title(
@@ -31,7 +33,7 @@ defined( 'ABSPATH' ) || exit;
 	</header>
 		<!-- .entry-header -->
 
-	<?php echo get_the_post_thumbnail( $post->ID, 'large' ); ?>
+	
 
 	<div class="entry-content">
 
@@ -47,5 +49,6 @@ defined( 'ABSPATH' ) || exit;
 		<?php understrap_entry_footer(); ?>
 
 	</footer><!-- .entry-footer -->
+		</div>
 </article><!-- #post-<?php the_ID(); ?> -->
 		</div>

@@ -78,7 +78,7 @@ if ( ! function_exists( 'understrap_tags_list' ) ) {
 		$tags_list = get_the_tag_list( '', understrap_get_list_item_separator() );
 		if ( $tags_list && ! is_wp_error( $tags_list ) ) {
 			/* translators: %s: Tags of current post */
-			printf( '<span class="tags-links">' . esc_html__( 'Tagged %s', 'understrap' ) . '</span>', $tags_list ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			printf( '<span class="tags-links">' . esc_html__( 'Tags: %s', 'understrap' ) . '</span>', $tags_list ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		}
 	}
 }
@@ -94,17 +94,17 @@ if ( ! function_exists( 'understrap_comments_popup_link' ) ) {
 			return;
 		}
 
-		$post_title    = get_the_title();
-		$leave_comment = sprintf(
-			/* translators: %s post title */
-			__( 'Leave a comment<span class="screen-reader-text"> on %s</span>', 'understrap' ),
-			$post_title
-		);
-		$leave_comment = wp_kses( $leave_comment, array( 'span' => array( 'class' => true ) ) );
+		// $post_title    = get_the_title();
+		// $leave_comment = sprintf(
+		// * translators: %s post title */
+		// __( 'Leave a comment<span class="screen-reader-text"> on %s</span>', 'understrap' ),
+		// $post_title
+		// );
+		// $leave_comment = wp_kses( $leave_comment, array( 'span' => array( 'class' => true ) ) );
 
-		echo '<span class="comments-link">';
-		comments_popup_link( $leave_comment );
-		echo '</span>';
+		// echo '<span class="comments-link">';
+		// comments_popup_link( $leave_comment );
+		// echo '</span>';
 	}
 }
 

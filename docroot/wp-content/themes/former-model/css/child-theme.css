@@ -15153,6 +15153,17 @@ figure.woocommerce-product-gallery__wrapper {
   padding-bottom: 0;
 }
 
+.archive__article {
+  box-shadow: 0 0.5rem 1rem rgba(13, 13, 13, 0.15);
+}
+.archive__article:hover {
+  box-shadow: 0 1rem 3rem rgba(13, 13, 13, 0.175);
+}
+
+.article__content {
+  padding: 1rem;
+}
+
 .has-blue-color,
 .has-blue-color:visited {
   color: #2675a6;

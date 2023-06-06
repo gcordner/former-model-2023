@@ -65,3 +65,15 @@
 .wrapper {
     padding-bottom: 0;
 }
+
+.archive__article {
+    box-shadow: $box-shadow;
+
+    &:hover {
+        box-shadow: $box-shadow-lg;
+    }
+}
+
+.article__content {
+    padding: 1rem;
+}
