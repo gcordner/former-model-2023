@@ -41,8 +41,18 @@ To work and compile your Sass files on the fly start, (without browser sync):
 npm run watch
 ```
 
+Build:
+```
+npm run build
+```
+This command creates a /dist/ directory inside your child theme and populates it with a distributable version of your child theme. This version does not include any development files or features, such as the package.json and the entire /src/ folder, meaning that another user wouldn't be able to modify and rebuild the stylesheets or javascript files.
 
-###Available cli commands:
+By default, the /dist/ is included in the .gitignore file and is not version controlled.
+
+For more info, read https://docs.understrap.com/#/understrap-child/npm
+
+
+###Available cli commands (most of which don't work???:
 ```
 _s comes packed with CLI commands tailored for WordPress theme development :
 
