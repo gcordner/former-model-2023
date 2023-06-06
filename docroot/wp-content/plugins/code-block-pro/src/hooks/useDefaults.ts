@@ -1,6 +1,5 @@
 import { useEffect, useRef } from '@wordpress/element';
 import { Theme } from 'shiki';
-import { useGlobalStore } from '../state/global';
 import { useThemeStore, useThemeStoreReady } from '../state/theme';
 import { AttributesPropsAndSetter } from '../types';
 
@@ -14,6 +13,7 @@ export const useDefaults = ({
         fontFamily,
         lineHeight,
         copyButton,
+        buttonTheme,
         headerType,
         footerType,
         clampFonts,
@@ -21,7 +21,6 @@ export const useDefaults = ({
         lineNumbers,
         highlightingHover,
     } = attributes;
-    const { previousSettings } = useGlobalStore();
     const {
         previousTheme,
         previousFontSize,
@@ -33,15 +32,23 @@ export const useDefaults = ({
         previousDisablePadding,
         previousLineNumbers,
         previousHighlightingHover,
+        previousCopyButton,
+        previousButtonTheme,
     } = useThemeStore();
     const ready = useThemeStoreReady();
     const once = useRef(false);
 
     useEffect(() => {
         if (once.current) return;
-        if (copyButton !== undefined || !previousSettings.copyButton) return;
-        setAttributes({ copyButton: previousSettings.copyButton });
-    }, [previousSettings, copyButton, setAttributes]);
+        if (copyButton !== undefined || !previousCopyButton) return;
+        setAttributes({ copyButton: previousCopyButton });
+    }, [previousCopyButton, copyButton, setAttributes]);
+
+    useEffect(() => {
+        if (once.current) return;
+        if (buttonTheme || !previousButtonTheme) return;
+        setAttributes({ buttonTheme: previousButtonTheme });
+    }, [previousButtonTheme, buttonTheme, setAttributes]);
 
     useEffect(() => {
         if (once.current) return;

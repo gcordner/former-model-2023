@@ -1,13 +1,19 @@
 import { __ } from '@wordpress/i18n';
 import stripAnsi from 'strip-ansi';
-import { Attributes } from '../types';
+import { Attributes } from '../../../types';
 
 export const CopyButton = ({ attributes }: { attributes: Attributes }) => (
     <span
         // Using a span to prevent aggressive button styling from themes
         role="button"
         tabIndex={0}
-        data-code={stripAnsi(attributes.code ?? '')}
+        data-encoded={attributes.useDecodeURI ? true : undefined}
+        data-code={stripAnsi(
+            attributes.useDecodeURI
+                ? // Encode again otherwise WP will decode it
+                  encodeURIComponent(attributes.code ?? '')
+                : attributes.code ?? '',
+        )}
         style={{ color: attributes?.textColor ?? 'inherit', display: 'none' }}
         aria-label={__('Copy', 'code-block-pro')}
         className="code-block-pro-copy-button">
